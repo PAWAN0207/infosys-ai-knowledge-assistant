@@ -1728,3 +1728,93 @@ Planned improvements include:
 - [ ] Monitoring and observability
 - [ ] Managed vector database
 - [ ] CI/CD pipeline
+
+---
+
+# 👨‍💻 Author
+
+## Pawan Ajay Prasad
+
+**Data Analyst | Junior Data Scientist | ML & GenAI**
+
+I enjoy building practical data and AI solutions using machine learning, generative AI, and modern data technologies.
+
+### Technical Interests
+
+```text
+Python • SQL • Machine Learning • GenAI • RAG • Power BI
+```
+
+### Connect With Me
+
+- 🔗 **GitHub:** https://github.com/PAWAN0207
+- 💼 **LinkedIn:** https://www.linkedin.com/in/pawan-prasad-analyst/
+
+---
+
+# 🎯 Project Summary
+
+The **Infosys AI Knowledge Assistant** demonstrates how a traditional enterprise document repository can be transformed into an AI-powered knowledge discovery system.
+
+The project combines:
+
+```text
+PDF Documents
+      ↓
+Document Processing
+      ↓
+Text Chunking
+      ↓
+Vector Embeddings
+      ↓
+ChromaDB
+      ↓
+RBAC Filtering
+      ↓
+Semantic Retrieval
+      ↓
+Grounded Gemini Generation
+      ↓
+Citations + Structured Response
+```
+
+The key focus of the project is not only generating an answer, but ensuring that the answer is:
+
+- 🔐 Access-aware
+- 📚 Source-backed
+- 🎯 Contextually relevant
+- 🛡️ Grounded in retrieved information
+- 🔎 Traceable to the source document
+
+---
+
+# ⭐ Try the Project
+
+### 🚀 [Open the Live Application](https://infosys-ai-knowledge-assistant-qsjefhgbq7np44rb9v597g.streamlit.app/)
+
+Explore the application by:
+
+1. Selecting an employee designation.
+2. Asking a question about the enterprise knowledge base.
+3. Reviewing the generated answer.
+4. Checking the confidence score.
+5. Inspecting the source document and page citation.
+6. Testing the RBAC behavior with different employee roles.
+
+---
+
+# 📌 Repository
+
+### [View Source Code on GitHub](https://github.com/PAWAN0207/infosys-ai-knowledge-assistant)
+
+If you find this project useful or interesting, feel free to explore the repository and connect with me.
+
+---
+
+## 🧰 Built With
+
+**Python** • **LangChain** • **Google Gemini** • **ChromaDB** • **Streamlit** • **PyMuPDF**
+
+---
+
+> **Disclaimer:** This is an educational and portfolio project using enterprise-style sample documentation. It is not an official Infosys internal application or representation of Infosys systems, policies, or production infrastructure.
