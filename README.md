@@ -1161,3 +1161,288 @@ Responsible for:
                          v
                   Final Response
 ```
+
+---
+
+# ⚙️ Installation & Setup
+
+Follow the steps below to run the project locally.
+
+## 1. Clone the Repository
+
+```bash
+git clone https://github.com/PAWAN0207/infosys-ai-knowledge-assistant.git
+cd infosys-ai-knowledge-assistant
+```
+
+---
+
+## 2. Create a Python Environment
+
+Using Conda:
+
+```bash
+conda create -n infosys-rag python=3.12
+conda activate infosys-rag
+```
+
+---
+
+## 3. Install Dependencies
+
+Install the required Python packages:
+
+```bash
+pip install -r requirements.txt
+```
+
+---
+
+## 4. Configure the Gemini API Key
+
+Create a `.env` file in the project root:
+
+```text
+GOOGLE_API_KEY=your_gemini_api_key_here
+```
+
+The application reads the API key from the environment.
+
+> **Security:** Never commit `.env` or any API key to GitHub.
+
+---
+
+# 📦 Build the Knowledge Base
+
+Before running the application for the first time, the PDF documents can be processed through the ingestion pipeline.
+
+Run:
+
+```bash
+python ingestion_pipeline/embedding_jobs/vector_indexer.py
+```
+
+The pipeline performs the following operations:
+
+```text
+PDF Documents
+      ↓
+PyMuPDFLoader
+      ↓
+Text Extraction
+      ↓
+Text Chunking
+      ↓
+Metadata Creation
+      ↓
+Gemini Embeddings
+      ↓
+ChromaDB
+```
+
+After successful indexing, the generated vector database is stored locally in:
+
+```text
+vector_db/
+```
+
+The `vector_db/` directory is excluded from Git because it is a generated artifact.
+
+---
+
+# ▶️ Run the Application
+
+Start the Streamlit application:
+
+```bash
+python -m streamlit run app.py
+```
+
+The application will open locally at:
+
+```text
+http://localhost:8501
+```
+
+---
+
+# 🧪 Testing the Application
+
+The application can be tested using different employee designations and queries.
+
+## Test 1 — Authorized Engineering Query
+
+Select:
+
+```text
+Software Engineer
+```
+
+Then ask:
+
+```text
+What are the key principles of the Infosys microservices architecture?
+```
+
+Expected behavior:
+
+```text
+✓ Relevant document retrieved
+✓ Grounded answer generated
+✓ Confidence score displayed
+✓ Source document displayed
+✓ Page number displayed
+```
+
+---
+
+## Test 2 — RBAC Restriction
+
+Select:
+
+```text
+HR Associate
+```
+
+Then ask:
+
+```text
+What are the key principles of the Infosys microservices architecture?
+```
+
+Since the HR Associate role does not have access to the Engineering department, Engineering content should not be retrieved.
+
+Expected behavior:
+
+```text
+Access Denied /
+Insufficient domain context available
+for your role clearance.
+```
+
+---
+
+## Test 3 — Out-of-Domain Query
+
+Ask a general question such as:
+
+```text
+How are you?
+```
+
+The application is designed for enterprise knowledge retrieval rather than general conversation.
+
+Expected behavior:
+
+```text
+Insufficient domain context
+```
+
+---
+
+# 🔄 Application Request Flow
+
+A typical user request follows this sequence:
+
+```text
+1. Employee selects designation
+              ↓
+2. Employee enters query
+              ↓
+3. RBAC determines permitted departments
+              ↓
+4. ChromaDB performs semantic retrieval
+              ↓
+5. Relevant document chunks are selected
+              ↓
+6. Retrieved context is passed to Gemini
+              ↓
+7. Gemini generates a grounded response
+              ↓
+8. Citations and metadata are displayed
+```
+
+---
+
+# ☁️ Streamlit Cloud Deployment
+
+The application is publicly deployed using **Streamlit Community Cloud**.
+
+### Deployment configuration
+
+```text
+Repository:
+PAWAN0207/infosys-ai-knowledge-assistant
+
+Branch:
+main
+
+Main File:
+app.py
+```
+
+The Gemini API key is configured through Streamlit Secrets rather than being stored in the repository.
+
+Example:
+
+```toml
+GOOGLE_API_KEY = "your_gemini_api_key"
+```
+
+### Live Application
+
+[🚀 Open the Infosys AI Knowledge Assistant](https://infosys-ai-knowledge-assistant-qsjefhgbq7np44rb9v597g.streamlit.app/)
+
+---
+
+# 🔒 Environment & Secret Management
+
+Local development uses:
+
+```text
+.env
+```
+
+Streamlit Cloud deployment uses:
+
+```text
+Streamlit Secrets
+```
+
+The repository contains only:
+
+```text
+.env.example
+```
+
+with a placeholder value.
+
+No real API credentials should be committed to GitHub.
+
+---
+
+# 📝 Quick Start
+
+For an experienced developer, the complete local setup is:
+
+```bash
+git clone https://github.com/PAWAN0207/infosys-ai-knowledge-assistant.git
+
+cd infosys-ai-knowledge-assistant
+
+conda create -n infosys-rag python=3.12
+
+conda activate infosys-rag
+
+pip install -r requirements.txt
+
+python ingestion_pipeline/embedding_jobs/vector_indexer.py
+
+python -m streamlit run app.py
+```
+
+Then open:
+
+```text
+http://localhost:8501
+```
