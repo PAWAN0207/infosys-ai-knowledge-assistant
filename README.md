@@ -170,3 +170,269 @@ data/
 ├── project_manuals/
 ├── sales_assets/
 └── sops/
+```
+
+The ingestion pipeline automatically discovers PDF files from these directories.
+
+---
+
+## 2. 📖 PDF Text Extraction
+
+The application uses **PyMuPDFLoader** to extract text from each PDF.
+
+Documents are processed page by page so that the original page number can be preserved for source citations.
+
+```text
+PDF
+ ↓
+PyMuPDFLoader
+ ↓
+Page-wise Text
+```
+
+---
+
+## 3. ✂️ Text Chunking
+
+The extracted text is split into smaller chunks using LangChain's:
+
+```text
+RecursiveCharacterTextSplitter
+```
+
+Configuration:
+
+```text
+Chunk Size    : 1000 characters
+Chunk Overlap : 200 characters
+```
+
+The overlap helps maintain contextual information between neighboring chunks.
+
+```text
+Large Document
+      |
+      v
++-------------+
+|   Chunk 1   |
++-------------+
+      |
+      v
++-------------+
+|   Chunk 2   |
++-------------+
+      |
+      v
++-------------+
+|   Chunk 3   |
++-------------+
+```
+
+---
+
+## 4. 🏷️ Metadata Creation
+
+Every document chunk is stored together with metadata.
+
+```text
+source_document
+page_number
+department
+chunk_id
+```
+
+Example:
+
+```text
+source_document : Infosys_Microservices_Architecture_Spec.pdf
+page_number     : 1
+department      : Engineering
+chunk_id        : ..._p1_c0
+```
+
+This metadata enables:
+
+- 🔐 Department-level filtering
+- 📚 Source citations
+- 📄 Page-level traceability
+- 🔎 Document identification
+
+---
+
+## 5. 🧠 Embedding Generation
+
+Each text chunk is converted into a numerical vector representation using Google's embedding model:
+
+```text
+gemini-embedding-2-preview
+```
+
+Conceptually:
+
+```text
+Text Chunk
+    |
+    v
+Embedding Model
+    |
+    v
+Vector Representation
+```
+
+Semantically similar pieces of text are represented by vectors that are close to each other in the embedding space.
+
+---
+
+## 6. 🗄️ Vector Storage with ChromaDB
+
+The generated embeddings, text chunks, and metadata are stored in **ChromaDB**.
+
+```text
++---------------------------+
+|         ChromaDB          |
++---------------------------+
+| Text Chunk                |
+| Embedding Vector          |
+| Source Document           |
+| Page Number               |
+| Department                |
+| Chunk ID                  |
++---------------------------+
+```
+
+The vector database is used during question answering to perform semantic similarity search.
+
+---
+
+## 7. 🔎 Semantic Retrieval
+
+When an employee submits a question, the system searches ChromaDB for the most relevant document chunks.
+
+The application retrieves the **top 5 relevant chunks** while applying the employee's department permissions.
+
+```text
+Employee Query
+      |
+      v
+Query Embedding
+      |
+      v
+RBAC Department Filter
+      |
+      v
+ChromaDB Similarity Search
+      |
+      v
+Top 5 Relevant Chunks
+```
+
+---
+
+## 8. 🛡️ Grounded Context Construction
+
+The retrieved chunks are combined into a structured context block.
+
+Only this retrieved context is provided to the generation layer.
+
+```text
+Retrieved Chunks
+       |
+       v
+Context Builder
+       |
+       v
+Grounded Context
+```
+
+The system instructs the LLM to avoid using unsupported external knowledge.
+
+---
+
+## 9. 🤖 Response Generation
+
+The grounded context and employee query are sent to **Google Gemini**.
+
+The model generates a structured response containing:
+
+```text
+Answer
+Confidence Score
+Citations
+Recommended Action
+```
+
+```text
+Grounded Context
+       +
+Employee Query
+       |
+       v
+Google Gemini
+       |
+       v
+Structured Response
+```
+
+---
+
+## 🔗 Complete Pipeline
+
+```text
++-------------------+
+|   Enterprise PDFs |
++---------+---------+
+          |
+          v
++-------------------+
+|  PyMuPDFLoader    |
++---------+---------+
+          |
+          v
++-------------------+
+|  Text Chunking    |
+|  1000 / 200       |
++---------+---------+
+          |
+          v
++-------------------+
+| Metadata Creation |
++---------+---------+
+          |
+          v
++-------------------+
+| Gemini Embeddings |
++---------+---------+
+          |
+          v
++-------------------+
+|     ChromaDB      |
++---------+---------+
+          |
+          | User Query
+          v
++-------------------+
+|   RBAC Filtering  |
++---------+---------+
+          |
+          v
++-------------------+
+| Semantic Retrieval|
+|    Top 5 Chunks   |
++---------+---------+
+          |
+          v
++-------------------+
+| Grounded Context  |
++---------+---------+
+          |
+          v
++-------------------+
+|   Google Gemini   |
++---------+---------+
+          |
+          v
++-------------------+
+|  Final Response   |
+|   + Citations     |
++-------------------+
+```
