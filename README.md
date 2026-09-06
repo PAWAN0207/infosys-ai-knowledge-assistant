@@ -94,3 +94,61 @@ The application provides a recommended next action along with the generated resp
 ### 🖥️ Interactive Streamlit Interface
 
 Employees can select their designation, submit a natural-language query, and view the grounded answer together with its source information.
+
+---
+
+# 🏗️ System Architecture
+
+The application follows a Retrieval-Augmented Generation architecture where access control is applied before document context is sent to the LLM.
+
+```text
++-------------------+
+|     Employee      |
+|      Query        |
++---------+---------+
+          |
+          v
++-------------------+
+| Employee          |
+| Designation       |
++---------+---------+
+          |
+          v
++-------------------+
+| RBAC Department   |
+|     Filter        |
++---------+---------+
+          |
+          v
++-------------------+
+|     ChromaDB      |
+| Semantic Retrieval|
++---------+---------+
+          |
+          v
++-------------------+
+| Relevant Document |
+|      Chunks       |
++---------+---------+
+          |
+          v
++-------------------+
+| Grounded Context  |
+|      Builder      |
++---------+---------+
+          |
+          v
++-------------------+
+|   Google Gemini   |
+|  Response Engine  |
++---------+---------+
+          |
+          v
++-----------------------------+
+|       Final Response        |
+|                             |
+|  Answer                     |
+|  Confidence Score           |
+|  Recommended Action         |
+|  Source Citation            |
++-----------------------------+
