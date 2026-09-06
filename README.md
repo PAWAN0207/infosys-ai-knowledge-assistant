@@ -152,6 +152,7 @@ The application follows a Retrieval-Augmented Generation architecture where acce
 |  Recommended Action         |
 |  Source Citation            |
 +-----------------------------+
+```
 
 ---
 
