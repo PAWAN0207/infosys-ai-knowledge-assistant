@@ -152,3 +152,21 @@ The application follows a Retrieval-Augmented Generation architecture where acce
 |  Recommended Action         |
 |  Source Citation            |
 +-----------------------------+
+
+---
+
+# 🔄 RAG Pipeline
+
+The RAG pipeline converts enterprise PDF documents into searchable vector representations and uses them to answer employee questions with relevant context.
+
+## 1. 📄 Document Ingestion
+
+The source documents are stored inside the `data/` directory and organized by business domain.
+
+```text
+data/
+├── engineering_guides/
+├── hr_policies/
+├── project_manuals/
+├── sales_assets/
+└── sops/
