@@ -920,3 +920,244 @@ The citation layer provides:
 - 🧠 Better trust in generated responses
 
 This makes the system more suitable for enterprise knowledge discovery than a basic standalone chatbot.
+
+---
+
+# 🛠️ Technology Stack
+
+| Category | Technology | Purpose |
+|---|---|---|
+| Programming Language | Python 3.12 | Application and AI workflow development |
+| LLM | Google Gemini | Grounded response generation |
+| Embeddings | Gemini Embeddings | Convert text into vector representations |
+| RAG Framework | LangChain | Retrieval and LLM workflow orchestration |
+| Vector Database | ChromaDB | Store and retrieve document embeddings |
+| PDF Processing | PyMuPDF | Extract text from PDF documents |
+| Text Splitting | RecursiveCharacterTextSplitter | Divide documents into manageable chunks |
+| Data Validation | Pydantic | Structured response schemas |
+| Web Application | Streamlit | Interactive user interface |
+| Configuration | python-dotenv | Environment variable management |
+| Version Control | Git + GitHub | Source code management |
+| Deployment | Streamlit Community Cloud | Public application hosting |
+
+---
+
+# 📁 Project Structure
+
+```text
+infosys-ai-knowledge-assistant/
+│
+├── app.py
+│   └── Main Streamlit application
+│
+├── README.md
+│   └── Project documentation
+│
+├── requirements.txt
+│   └── Python dependencies
+│
+├── .env.example
+│   └── Environment variable template
+│
+├── .gitignore
+│   └── Files excluded from Git
+│
+├── ai_workflows/
+│   │
+│   ├── citation_builder/
+│   │   ├── __init__.py
+│   │   └── citation_formatter.py
+│   │       └── Citation schemas and context formatting
+│   │
+│   ├── grounded_synthesis/
+│   │   ├── __init__.py
+│   │   └── synthesis_engine.py
+│   │       └── Retrieval and Gemini response generation
+│   │
+│   ├── query_classification/
+│   │   ├── __init__.py
+│   │   └── rbac_classifier.py
+│   │       └── Role-based department permissions
+│   │
+│   └── rag_retrieval/
+│       ├── __init__.py
+│       └── hybrid_search.py
+│           └── Retrieval testing utilities
+│
+├── ingestion_pipeline/
+│   │
+│   └── embedding_jobs/
+│       ├── __init__.py
+│       └── vector_indexer.py
+│           └── PDF ingestion and ChromaDB indexing
+│
+├── data/
+│   │
+│   ├── engineering_guides/
+│   │   └── Engineering documents
+│   │
+│   ├── hr_policies/
+│   │   └── HR documents
+│   │
+│   ├── project_manuals/
+│   │   └── PMO documents
+│   │
+│   ├── sales_assets/
+│   │   └── Sales documents
+│   │
+│   └── sops/
+│       └── Operational SOP documents
+│
+└── frontend/
+    ├── package.json
+    └── package-lock.json
+```
+
+> `vector_db/` is generated locally from the source documents and is intentionally excluded from Git.
+
+---
+
+# 🧩 Core Components
+
+## `app.py`
+
+The main Streamlit entry point.
+
+Responsible for:
+
+- Employee designation selection
+- User query input
+- Loading the RAG engine
+- Displaying grounded answers
+- Displaying confidence scores
+- Displaying recommended actions
+- Displaying source citations
+
+---
+
+## `vector_indexer.py`
+
+Located at:
+
+```text
+ingestion_pipeline/embedding_jobs/vector_indexer.py
+```
+
+Responsible for building the knowledge base.
+
+It performs:
+
+```text
+PDF Loading
+     ↓
+Text Extraction
+     ↓
+Chunking
+     ↓
+Metadata Creation
+     ↓
+Gemini Embeddings
+     ↓
+ChromaDB
+```
+
+---
+
+## `synthesis_engine.py`
+
+Located at:
+
+```text
+ai_workflows/grounded_synthesis/synthesis_engine.py
+```
+
+This is the main retrieval and generation component.
+
+It:
+
+1. Receives the employee query.
+2. Determines the allowed departments.
+3. Searches ChromaDB.
+4. Retrieves the top relevant chunks.
+5. Builds grounded context.
+6. Sends the context to Google Gemini.
+7. Returns the structured response.
+
+---
+
+## `rbac_classifier.py`
+
+Located at:
+
+```text
+ai_workflows/query_classification/rbac_classifier.py
+```
+
+Responsible for mapping employee designations to permitted departments.
+
+Example:
+
+```text
+Software Engineer
+        ↓
+Engineering
+Delivery Operations
+PMO
+```
+
+---
+
+## `citation_formatter.py`
+
+Located at:
+
+```text
+ai_workflows/citation_builder/citation_formatter.py
+```
+
+Responsible for:
+
+- Building the context block
+- Maintaining source metadata
+- Formatting citation information
+- Supporting traceability between retrieved chunks and final responses
+
+---
+
+# 🔗 Component Interaction
+
+```text
+                 +----------------+
+                 |    app.py      |
+                 |   Streamlit    |
+                 +-------+--------+
+                         |
+                         v
+              +----------------------+
+              |  RBAC Classifier     |
+              +----------+-----------+
+                         |
+                         v
+              +----------------------+
+              |  Synthesis Engine    |
+              +----------+-----------+
+                         |
+              +----------+----------+
+              |                     |
+              v                     v
+       +-------------+       +---------------+
+       |  ChromaDB   |       |   Citation    |
+       |  Retrieval  |       |   Formatter   |
+       +------+------+       +-------+-------+
+              |                      |
+              +----------+-----------+
+                         |
+                         v
+                  +-------------+
+                  | Google      |
+                  | Gemini      |
+                  +------+------+
+                         |
+                         v
+                  Final Response
+```
