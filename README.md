@@ -437,3 +437,236 @@ Structured Response
 |   + Citations     |
 +-------------------+
 ```
+
+---
+
+# 🔐 Role-Based Access Control (RBAC)
+
+The application implements **Role-Based Access Control** to restrict document retrieval based on an employee's designation.
+
+Each designation is mapped to one or more permitted departments.
+
+Before document chunks are retrieved from ChromaDB, the system determines the departments that the selected role is allowed to access.
+
+```text
+Employee Designation
+        |
+        v
+RBAC Permission Mapping
+        |
+        v
+Allowed Departments
+        |
+        v
+ChromaDB Retrieval Filter
+        |
+        v
+Only Authorized Document Chunks
+```
+
+This prevents the generation layer from receiving document context outside the user's permitted departments.
+
+---
+
+## 👥 Access Control Matrix
+
+| Employee Designation | Permitted Departments |
+|---|---|
+| Software Engineer | Engineering, Delivery Operations, PMO |
+| Senior Software Engineer | Engineering, Delivery Operations, PMO |
+| DevOps Lead | Engineering, Delivery Operations |
+| Solutions Architect | Engineering, Delivery Operations, PMO |
+| Engineering Lead | Engineering, Delivery Operations, PMO |
+| Sales Executive | Sales, Human Resources |
+| Business Development Manager | Sales, PMO |
+| Account Manager | Sales |
+| Sales Enablement Lead | Sales, Human Resources, PMO |
+| Delivery Manager | Delivery Operations, PMO, Engineering |
+| PMO Lead | PMO, Delivery Operations, Engineering |
+| Operations Lead | Delivery Operations |
+| HR Associate | Human Resources |
+| HR Operations Lead | Human Resources |
+| Senior Manager | Engineering, Delivery Operations, PMO, Human Resources, Sales |
+
+---
+
+## 🧩 How RBAC Works
+
+The RBAC logic is implemented in:
+
+```text
+ai_workflows/query_classification/rbac_classifier.py
+```
+
+The application first obtains the departments allowed for the selected designation.
+
+Conceptually:
+
+```python
+allowed_departments = get_allowed_departments(designation)
+```
+
+The allowed departments are then used as a filter during ChromaDB retrieval.
+
+```text
+User Query
+    |
+    v
+Selected Designation
+    |
+    v
+Allowed Departments
+    |
+    v
+ChromaDB Similarity Search
+    |
+    v
+Authorized Chunks Only
+```
+
+---
+
+## ✅ Authorized Access Example
+
+### User Role
+
+```text
+Software Engineer
+```
+
+### Query
+
+```text
+What are the key principles of the Infosys microservices architecture?
+```
+
+The Software Engineer role has access to:
+
+```text
+Engineering
+Delivery Operations
+PMO
+```
+
+Therefore, Engineering documentation can be retrieved.
+
+```text
+Software Engineer
+       |
+       v
+Engineering ✓
+       |
+       v
+Relevant Chunks Retrieved
+       |
+       v
+Grounded Gemini Response
+```
+
+---
+
+## 🚫 Restricted Access Example
+
+### User Role
+
+```text
+HR Associate
+```
+
+### Query
+
+```text
+What are the key principles of the Infosys microservices architecture?
+```
+
+The HR Associate role has access only to:
+
+```text
+Human Resources
+```
+
+Engineering documentation is outside the permitted department.
+
+Therefore, Engineering content is not available to the retrieval layer for this role.
+
+```text
+HR Associate
+       |
+       v
+Human Resources ✓
+Engineering      ✗
+       |
+       v
+No authorized Engineering context
+       |
+       v
+Insufficient Context Response
+```
+
+Expected response:
+
+```text
+Access Denied /
+Insufficient domain context available
+for your role clearance.
+```
+
+---
+
+# 🛡️ Security & Grounding Model
+
+The project uses multiple controls to keep responses grounded and access-aware.
+
+### 1. 🔐 Department-Level Authorization
+
+Users can retrieve information only from departments associated with their selected designation.
+
+### 2. 📚 Metadata-Based Filtering
+
+Each document chunk contains department metadata.
+
+```text
+department
+source_document
+page_number
+chunk_id
+```
+
+This metadata enables the retrieval layer to apply department restrictions.
+
+### 3. 🧠 Grounded Generation
+
+Only retrieved document context is passed to the Gemini generation layer.
+
+The model is instructed to avoid unsupported external knowledge and assumptions.
+
+### 4. 📖 Source Traceability
+
+Retrieved chunks retain their document and page metadata so that generated responses can be linked back to their source.
+
+### 5. 🚫 Insufficient-Context Handling
+
+If the permitted knowledge domain does not contain sufficient information, the application returns an insufficient-context response rather than intentionally generating an unsupported answer.
+
+---
+
+# ⚠️ Production Security Considerations
+
+The current application uses a **designation selector to simulate employee identity for demonstration purposes**.
+
+For a production enterprise system, the following controls should be added:
+
+- Enterprise SSO authentication
+- OAuth 2.0 / OpenID Connect
+- Corporate identity provider integration
+- Server-side authorization
+- User-to-role mapping from an identity system
+- Document-level permissions
+- Audit logging
+- Secret management
+- Encryption in transit and at rest
+- Access monitoring
+
+The current RBAC implementation demonstrates the **authorization and retrieval-filtering concept** rather than a complete enterprise authentication system.
+
+> **Important:** This is a portfolio/demo project using enterprise-style sample documentation. It is not an official Infosys internal production application.
