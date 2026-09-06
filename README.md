@@ -670,3 +670,253 @@ For a production enterprise system, the following controls should be added:
 The current RBAC implementation demonstrates the **authorization and retrieval-filtering concept** rather than a complete enterprise authentication system.
 
 > **Important:** This is a portfolio/demo project using enterprise-style sample documentation. It is not an official Infosys internal production application.
+
+---
+
+# 📚 Citation & Grounded Response
+
+A key objective of the application is to ensure that generated answers remain connected to the retrieved enterprise documentation.
+
+The system combines **retrieval, metadata, grounded prompting, and source citations** to provide traceable responses.
+
+---
+
+## 🔎 Where Does the Answer Come From?
+
+The answer is generated from the document chunks retrieved from **ChromaDB**.
+
+The flow is:
+
+```text
+Employee Query
+      |
+      v
+ChromaDB Semantic Search
+      |
+      v
+Relevant Document Chunks
+      |
+      v
+Grounded Context
+      |
+      v
+Google Gemini
+      |
+      v
+Final Answer
+```
+
+Google Gemini is responsible for generating the response, but the response is grounded using the retrieved document context.
+
+---
+
+## 📄 Where Are the Source PDFs?
+
+The source PDFs are stored inside the project's `data/` directory.
+
+```text
+data/
+├── engineering_guides/
+├── hr_policies/
+├── project_manuals/
+├── sales_assets/
+└── sops/
+```
+
+These documents are processed by the ingestion pipeline before they become searchable through ChromaDB.
+
+---
+
+## 🏷️ How Are Sources Tracked?
+
+During ingestion, each document chunk receives metadata.
+
+```text
+source_document
+page_number
+department
+chunk_id
+```
+
+For example:
+
+```text
+source_document : Infosys_Microservices_Architecture_Spec.pdf
+page_number     : 1
+department      : Engineering
+chunk_id        : document_p1_c0
+```
+
+This metadata travels with the retrieved chunk and can be used to identify the original source.
+
+---
+
+## 📌 Citation Generation
+
+After retrieval, the application passes the document content and its metadata into the grounded response workflow.
+
+The response can contain citation information such as:
+
+```text
+Document:
+Infosys_Microservices_Architecture_Spec.pdf
+
+Page:
+1
+
+Department:
+Engineering
+```
+
+The Streamlit interface displays this information in the **Citation & Source Panel**.
+
+This provides users with a clear connection between the generated response and the underlying source document.
+
+---
+
+## 🛡️ Grounded Response Behavior
+
+The generation layer uses explicit grounding instructions.
+
+The model is instructed to:
+
+1. Use only the supplied document context.
+2. Avoid external knowledge.
+3. Avoid unsupported assumptions.
+4. Avoid extrapolating beyond the retrieved information.
+5. Return an insufficient-context response when the available context is not enough.
+6. Map citations to the retrieved document metadata.
+
+Conceptually:
+
+```text
++----------------------+
+|    Employee Query    |
++----------+-----------+
+           |
+           v
++----------------------+
+|  Retrieved Chunks    |
+|      from ChromaDB  |
++----------+-----------+
+           |
+           v
++----------------------+
+|   Grounded Prompt    |
++----------+-----------+
+           |
+           v
++----------------------+
+|    Google Gemini     |
++----------+-----------+
+           |
+           v
++----------------------+
+|   Structured Output  |
++----------------------+
+           |
+           +------------------+
+           |                  |
+           v                  v
+       Answer             Citations
+           |
+           +------------------+
+           |
+           v
+    Confidence Score
+           |
+           v
+   Recommended Action
+```
+
+---
+
+# 🚫 Insufficient Context Handling
+
+The application is designed to avoid behaving like a general-purpose chatbot.
+
+If the retrieved context does not contain sufficient information to answer the employee's question, the system can return:
+
+```text
+Access Denied /
+Insufficient domain context available
+for your role clearance.
+```
+
+This is particularly important when combined with RBAC.
+
+For example, an HR user asking an Engineering question should not receive Engineering information simply because the LLM knows about the topic from its general training.
+
+---
+
+# 🧪 Example: Grounded Answer
+
+### Employee Designation
+
+```text
+Software Engineer
+```
+
+### Query
+
+```text
+What are the key principles of the Infosys microservices architecture?
+```
+
+### Retrieval
+
+```text
+Software Engineer
+       |
+       v
+Allowed Departments
+       |
+       v
+Engineering
+       |
+       v
+ChromaDB
+       |
+       v
+Relevant Engineering Chunks
+```
+
+### Generation
+
+```text
+Retrieved Engineering Context
+             +
+          User Query
+             |
+             v
+       Google Gemini
+             |
+             v
+      Grounded Response
+```
+
+### Result
+
+```text
+Answer
+Confidence Score
+Recommended Action
+Source Document
+Page Number
+```
+
+---
+
+# 🎯 Why Citations Matter
+
+Citation-backed responses are important for enterprise applications because users need to understand **where an answer came from**.
+
+The citation layer provides:
+
+- 📄 Source document identification
+- 📑 Page-level traceability
+- 🔐 Department context
+- 🔎 Retrieval transparency
+- 🧠 Better trust in generated responses
+
+This makes the system more suitable for enterprise knowledge discovery than a basic standalone chatbot.
