@@ -1735,7 +1735,7 @@ Planned improvements include:
 
 ## Pawan Ajay Prasad
 
-**Data Analyst | Junior Data Scientist | ML & GenAI**
+**AI Engineer | Generative AI | Machine Learning**
 
 I enjoy building practical data and AI solutions using machine learning, generative AI, and modern data technologies.
 
