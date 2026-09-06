@@ -1446,3 +1446,285 @@ Then open:
 ```text
 http://localhost:8501
 ```
+---
+
+# 📊 Performance & Reliability
+
+The application is designed to provide fast semantic retrieval and grounded responses for a small enterprise-style document knowledge base.
+
+The current retrieval workflow uses:
+
+```text
+Top K = 5
+```
+
+This means the system retrieves up to five relevant document chunks before sending the grounded context to Gemini.
+
+### Retrieval Flow
+
+```text
+User Query
+    ↓
+RBAC Filtering
+    ↓
+Semantic Similarity Search
+    ↓
+Top 5 Relevant Chunks
+    ↓
+Grounded Context
+    ↓
+Gemini Response
+```
+
+Keeping the retrieved context focused helps reduce unnecessary information being passed to the LLM.
+
+---
+
+# ⚠️ Current Limitations
+
+Although the project demonstrates the core enterprise RAG architecture, there are several areas that would require additional engineering for production use.
+
+## 1. 👤 Simulated User Identity
+
+The current application uses a designation selector to simulate the employee's identity.
+
+A production system should obtain the user's identity and role from an authenticated enterprise identity provider.
+
+---
+
+## 2. 🗄️ Local ChromaDB
+
+The current architecture uses ChromaDB as the vector store.
+
+For a larger enterprise deployment, a managed or distributed vector database could provide better scalability, persistence, monitoring, and concurrent access.
+
+---
+
+## 3. 📚 Small Demonstration Knowledge Base
+
+The current knowledge base contains a limited set of enterprise-style sample documents.
+
+A production implementation would need to support:
+
+- Larger document collections
+- Document versioning
+- Incremental indexing
+- Document lifecycle management
+- Automated ingestion
+
+---
+
+## 4. 🔎 Retrieval Evaluation
+
+The current system focuses on functional retrieval rather than a complete retrieval evaluation framework.
+
+A production implementation should measure metrics such as:
+
+- Precision@K
+- Recall@K
+- MRR
+- Retrieval relevance
+- Citation accuracy
+- Groundedness
+
+---
+
+## 5. 🧠 LLM Evaluation
+
+Generated responses should be evaluated systematically using:
+
+- Answer correctness
+- Faithfulness
+- Context relevance
+- Citation correctness
+- Hallucination rate
+
+Automated evaluation pipelines could be added for continuous monitoring.
+
+---
+
+# 🚀 Production Improvements
+
+The following improvements could make the application more suitable for enterprise-scale deployment.
+
+## 🔐 Authentication & Authorization
+
+Replace the demo designation selector with:
+
+```text
+Enterprise SSO
+      ↓
+Identity Provider
+      ↓
+Authenticated User
+      ↓
+User Role
+      ↓
+RBAC Permissions
+```
+
+---
+
+## 🔎 Hybrid Retrieval
+
+Combine semantic vector search with traditional keyword search.
+
+```text
+User Query
+     |
+     +-----------> Semantic Search
+     |
+     +-----------> Keyword Search
+     |
+     v
+Result Fusion
+     |
+     v
+Re-ranking
+     |
+     v
+Best Context
+```
+
+This can improve retrieval for exact terms, document IDs, policy names, and technical terminology.
+
+---
+
+## 🧠 Re-ranking
+
+A re-ranking model could be introduced after initial retrieval.
+
+```text
+ChromaDB
+   ↓
+Top N Candidates
+   ↓
+Re-ranker
+   ↓
+Top K Context
+   ↓
+Gemini
+```
+
+This can improve the relevance of the final context provided to the LLM.
+
+---
+
+## 🗂️ Document Versioning
+
+Enterprise policies and technical documents may have multiple versions.
+
+A production system should track:
+
+```text
+Document ID
+Version
+Effective Date
+Department
+Status
+Owner
+```
+
+This would allow the system to retrieve the correct version of a document.
+
+---
+
+## 🔄 Automated Ingestion
+
+Instead of manually running the indexing script, a production pipeline could automatically detect new or updated documents.
+
+```text
+New / Updated PDF
+       ↓
+Document Validation
+       ↓
+Text Extraction
+       ↓
+Chunking
+       ↓
+Embedding Generation
+       ↓
+Vector Database Update
+```
+
+---
+
+## 📊 Monitoring & Observability
+
+A production RAG system should monitor:
+
+- Query latency
+- Retrieval quality
+- LLM latency
+- Token usage
+- API failures
+- Citation accuracy
+- User feedback
+- Hallucination rate
+
+This would make it easier to identify retrieval or generation problems.
+
+---
+
+## 📝 Audit Logging
+
+Enterprise applications should maintain audit records such as:
+
+```text
+User
+Role
+Query
+Retrieved Department
+Retrieved Documents
+Timestamp
+Response Status
+```
+
+Audit logs can help with security investigations, compliance, and system monitoring.
+
+---
+
+# 🎯 Project Takeaways
+
+This project demonstrates the complete lifecycle of an enterprise-style RAG application:
+
+```text
+Document Ingestion
+       ↓
+Text Processing
+       ↓
+Embedding Generation
+       ↓
+Vector Storage
+       ↓
+RBAC Filtering
+       ↓
+Semantic Retrieval
+       ↓
+Grounded Generation
+       ↓
+Citation
+       ↓
+User Response
+```
+
+The project focuses not only on generating answers, but also on **access control, source traceability, and grounded response behavior**.
+
+---
+
+# 🚀 Future Roadmap
+
+Planned improvements include:
+
+- [ ] Enterprise SSO authentication
+- [ ] Document-level permissions
+- [ ] Hybrid retrieval
+- [ ] Re-ranking
+- [ ] Automated document ingestion
+- [ ] Document version management
+- [ ] Retrieval evaluation
+- [ ] LLM evaluation
+- [ ] Audit logging
+- [ ] Monitoring and observability
+- [ ] Managed vector database
+- [ ] CI/CD pipeline
