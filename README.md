@@ -2,19 +2,23 @@
 
 
 
-> \*\*Enterprise Retrieval-Augmented Generation (RAG) system with role-based access control, grounded responses, and source citations.\*\*
+\### Enterprise RAG System with RBAC, Grounded Responses \& Source Citations
 
 
 
-\[!\[Python](https://img.shields.io/badge/Python-3.12-blue)](https://www.python.org/)
+An enterprise-style \*\*Retrieval-Augmented Generation (RAG)\*\* application that helps employees search internal knowledge documents using natural language.
 
-\[!\[Streamlit](https://img.shields.io/badge/Streamlit-1.63-red)](https://streamlit.io/)
 
-\[!\[LangChain](https://img.shields.io/badge/LangChain-RAG-green)](https://www.langchain.com/)
 
-\[!\[ChromaDB](https://img.shields.io/badge/Vector%20DB-ChromaDB-purple)](https://www.trychroma.com/)
+The system combines \*\*Google Gemini, LangChain, ChromaDB, Python, and Streamlit\*\* to retrieve relevant document context, generate grounded answers, provide source citations, and enforce department-level \*\*Role-Based Access Control (RBAC)\*\* before document retrieval.
 
-\[!\[Google Gemini](https://img.shields.io/badge/LLM-Google%20Gemini-orange)](https://ai.google.dev/)
+
+
+> \*\*Portfolio Project:\*\* This project demonstrates an enterprise knowledge assistant architecture with semantic retrieval, access control, citation grounding, and hallucination guardrails.
+
+
+
+\---
 
 
 
@@ -22,53 +26,27 @@
 
 
 
-\### 👉 \[Open Infosys AI Knowledge Assistant](https://infosys-ai-knowledge-assistant-qsjefhbgq7np44rb9v597g.streamlit.app/)
+\### 👉 \[Open the Live Application](https://infosys-ai-knowledge-assistant-qsjefhbgq7np44rb9v597g.streamlit.app/)
 
 
 
-The application is publicly deployed using Streamlit Community Cloud.
+The application is deployed using \*\*Streamlit Community Cloud\*\*.
 
 
 
-\---
+You can test:
 
 
 
-\## 📌 Project Overview
+\- 🔎 Enterprise document search
 
+\- 🔐 Role-based access control
 
+\- 📚 Source citations
 
-The \*\*Infosys AI Knowledge Assistant\*\* is an enterprise-style RAG application designed to help employees retrieve information from internal policies, SOPs, architecture guides, project manuals, and sales documentation.
+\- 🧠 Grounded Gemini responses
 
-
-
-Instead of sending a user query directly to an LLM, the system first retrieves relevant information from a controlled document knowledge base and then generates an answer using only the retrieved context.
-
-
-
-The system also applies \*\*Role-Based Access Control (RBAC)\*\* before document retrieval so that users can only retrieve information from departments permitted for their selected designation.
-
-
-
-\### Key objectives
-
-
-
-\- 🔎 Semantic search across enterprise PDF documents
-
-\- 🧠 Retrieval-Augmented Generation using Google Gemini
-
-\- 🔐 Role-based document access
-
-\- 📚 Citation-backed answers
-
-\- 🛡️ Zero-extrapolation / grounded response behavior
-
-\- 📊 Confidence scoring
-
-\- 💡 Recommended actions for employees
-
-\- 🌐 Interactive Streamlit web interface
+\- 🛡️ Out-of-domain query protection
 
 
 
@@ -76,121 +54,223 @@ The system also applies \*\*Role-Based Access Control (RBAC)\*\* before document
 
 
 
-\# 🏗️ System Architecture
+\## 🎯 Project Highlights
+
+
+
+| Feature | Implementation |
+
+|---|---|
+
+| 🧠 LLM | Google Gemini |
+
+| 🔎 Retrieval | ChromaDB Semantic Search |
+
+| 🔗 RAG Framework | LangChain |
+
+| 📄 PDF Processing | PyMuPDF |
+
+| 🧩 Text Chunking | RecursiveCharacterTextSplitter |
+
+| 🔐 Access Control | Role-Based Department Filtering |
+
+| 📚 Citations | Document + Page Metadata |
+
+| 🛡️ Guardrails | Grounded / Zero-Extrapolation Prompting |
+
+| 🖥️ UI | Streamlit |
+
+| ☁️ Deployment | Streamlit Community Cloud |
+
+| 🐍 Language | Python 3.12 |
+
+
+
+\---
+
+
+
+\# 📌 Problem Statement
+
+
+
+Enterprise employees often need to search through policies, SOPs, technical guides, project manuals, and business documents.
+
+
+
+Traditional keyword search can make it difficult to understand natural-language questions and identify the most relevant information.
+
+
+
+This project addresses that problem by building an AI-powered knowledge assistant that:
+
+
+
+1\. Understands natural-language employee questions.
+
+2\. Searches enterprise documents semantically.
+
+3\. Applies role-based access restrictions.
+
+4\. Generates answers from retrieved document context.
+
+5\. Displays source documents and page numbers.
+
+6\. Avoids unsupported answers when sufficient domain context is unavailable.
+
+
+
+\---
+
+
+
+\# 💡 Solution
+
+
+
+The application uses a \*\*Retrieval-Augmented Generation architecture\*\* instead of sending user questions directly to an LLM.
+
+
+
+\### High-Level Workflow
 
 
 
 ```text
 
-&#x20;                        ┌─────────────────────┐
+Employee Query
 
-&#x20;                        │      Employee       │
+&#x20;     ↓
 
-&#x20;                        │      Query          │
+Employee Designation
 
-&#x20;                        └──────────┬──────────┘
+&#x20;     ↓
 
-&#x20;                                   │
+RBAC Department Filter
 
-&#x20;                                   ▼
+&#x20;     ↓
 
-&#x20;                        ┌─────────────────────┐
+ChromaDB Semantic Retrieval
 
-&#x20;                        │ Employee Designation│
+&#x20;     ↓
 
-&#x20;                        │      / RBAC         │
+Relevant Document Chunks
 
-&#x20;                        └──────────┬──────────┘
+&#x20;     ↓
 
-&#x20;                                   │
+Grounded Context Builder
 
-&#x20;                                   ▼
+&#x20;     ↓
 
-&#x20;                        ┌─────────────────────┐
+Google Gemini
 
-&#x20;                        │  RBAC Department    │
+&#x20;     ↓
 
-&#x20;                        │      Filter         │
+Answer + Citation + Confidence + Recommended Action
 
-&#x20;                        └──────────┬──────────┘
+🏗️ System Architecture
 
-&#x20;                                   │
+&#x20;                   ┌──────────────────────┐
 
-&#x20;                                   ▼
+&#x20;                   │      Employee        │
 
-&#x20;                        ┌─────────────────────┐
+&#x20;                   │       Query          │
 
-&#x20;                        │      ChromaDB       │
+&#x20;                   └──────────┬───────────┘
 
-&#x20;                        │ Semantic Retrieval  │
+&#x20;                              │
 
-&#x20;                        └──────────┬──────────┘
+&#x20;                              ▼
 
-&#x20;                                   │
+&#x20;                   ┌──────────────────────┐
 
-&#x20;                             Top-K Chunks
+&#x20;                   │ Employee Designation │
 
-&#x20;                                   │
+&#x20;                   │      Selection       │
 
-&#x20;                                   ▼
+&#x20;                   └──────────┬───────────┘
 
-&#x20;                        ┌─────────────────────┐
+&#x20;                              │
 
-&#x20;                        │ Grounded Context    │
+&#x20;                              ▼
 
-&#x20;                        │     Builder         │
+&#x20;                   ┌──────────────────────┐
 
-&#x20;                        └──────────┬──────────┘
+&#x20;                   │        RBAC          │
 
-&#x20;                                   │
+&#x20;                   │ Department Filtering │
 
-&#x20;                                   ▼
+&#x20;                   └──────────┬───────────┘
 
-&#x20;                        ┌─────────────────────┐
+&#x20;                              │
 
-&#x20;                        │   Google Gemini     │
+&#x20;                              ▼
 
-&#x20;                        │    Generation       │
+&#x20;                   ┌──────────────────────┐
 
-&#x20;                        └──────────┬──────────┘
+&#x20;                   │       ChromaDB       │
 
-&#x20;                                   │
+&#x20;                   │ Semantic Retrieval   │
 
-&#x20;                                   ▼
+&#x20;                   └──────────┬───────────┘
 
-&#x20;                ┌──────────────────────────────────┐
+&#x20;                              │
 
-&#x20;                │ Grounded Answer + Citation +     │
+&#x20;                        Top 5 Chunks
 
-&#x20;                │ Confidence + Recommended Action │
+&#x20;                              │
 
-&#x20;                └──────────────────────────────────┘
+&#x20;                              ▼
 
-```
+&#x20;                   ┌──────────────────────┐
+
+&#x20;                   │  Grounded Context    │
+
+&#x20;                   │       Builder        │
+
+&#x20;                   └──────────┬───────────┘
+
+&#x20;                              │
+
+&#x20;                              ▼
+
+&#x20;                   ┌──────────────────────┐
+
+&#x20;                   │    Google Gemini     │
+
+&#x20;                   │  Grounded Generation │
+
+&#x20;                   └──────────┬───────────┘
+
+&#x20;                              │
+
+&#x20;                              ▼
+
+&#x20;             ┌─────────────────────────────────┐
+
+&#x20;             │        Final Response           │
+
+&#x20;             │                                 │
+
+&#x20;             │  • Grounded Answer             │
+
+&#x20;             │  • Confidence Score             │
+
+&#x20;             │  • Recommended Action           │
+
+&#x20;             │  • Source Citation              │
+
+&#x20;             └─────────────────────────────────┘
+
+🔄 RAG Pipeline
+
+1\. Document Ingestion
 
 
 
-\---
+Enterprise-style PDF documents are organized inside the data/ directory.
 
 
-
-\# 🔄 RAG Workflow
-
-
-
-The application follows the following pipeline:
-
-
-
-\### 1. Document ingestion
-
-
-
-PDF documents are stored under the `data/` directory and organized by business domain.
-
-
-
-```text
 
 data/
 
@@ -204,23 +284,27 @@ data/
 
 └── sops/
 
-```
+2\. PDF Text Extraction
 
 
 
-\### 2. PDF parsing
+PyMuPDFLoader extracts text from PDF documents page by page.
 
 
 
-`PyMuPDFLoader` extracts text from each PDF page.
+Processing documents page-by-page allows the original page number to be retained for citations.
 
 
 
-\### 3. Text chunking
+3\. Text Chunking
 
 
 
-Documents are split using LangChain's `RecursiveCharacterTextSplitter`.
+The extracted content is divided into smaller chunks using LangChain's:
+
+
+
+RecursiveCharacterTextSplitter
 
 
 
@@ -228,29 +312,23 @@ Configuration:
 
 
 
-```text
+Chunk Size    : 1000 characters
 
-Chunk size   : 1000 characters
-
-Chunk overlap: 200 characters
-
-```
+Chunk Overlap : 200 characters
 
 
 
-The overlap helps preserve context between neighboring chunks.
+The overlap helps preserve contextual information between neighboring chunks.
 
 
 
-\### 4. Metadata creation
+4\. Metadata Creation
 
 
 
-Each chunk receives metadata such as:
+Each chunk receives metadata:
 
 
-
-```text
 
 source\_document
 
@@ -260,39 +338,39 @@ department
 
 chunk\_id
 
-```
+
+
+This metadata is used for:
 
 
 
-This metadata is later used for filtering and citations.
+RBAC filtering
+
+Source citations
+
+Document traceability
+
+5\. Embedding Generation
 
 
 
-\### 5. Embeddings
+Document chunks are converted into vector representations using:
 
 
-
-Google's Gemini embedding model converts document chunks into numerical vector representations.
-
-
-
-```text
 
 gemini-embedding-2-preview
 
-```
+6\. Vector Storage
 
 
 
-\### 6. Vector storage
+The generated embeddings, document text, and metadata are stored in:
 
 
 
-The generated embeddings and document metadata are stored in \*\*ChromaDB\*\*.
+ChromaDB
 
-
-
-\### 7. Query retrieval
+7\. Query Retrieval
 
 
 
@@ -300,13 +378,19 @@ When an employee submits a question:
 
 
 
-```text
-
 User Query
 
 &#x20;   ↓
 
-RBAC Department Filter
+Determine Employee Designation
+
+&#x20;   ↓
+
+Determine Allowed Departments
+
+&#x20;   ↓
+
+Apply RBAC Filter
 
 &#x20;   ↓
 
@@ -314,201 +398,73 @@ ChromaDB Semantic Search
 
 &#x20;   ↓
 
-Top 5 Relevant Chunks
+Retrieve Top 5 Relevant Chunks
 
-```
+&#x20;   ↓
 
+Build Grounded Context
 
+&#x20;   ↓
 
-\### 8. Grounded generation
+Send Context + Query to Gemini
 
+&#x20;   ↓
 
+Generate Structured Response
 
-The retrieved chunks are passed to Google Gemini with strict grounding instructions.
+🔐 Role-Based Access Control
 
 
 
-The model is instructed to:
+The application implements department-level access control based on employee designation.
 
 
 
-\- Use only the supplied context
+The RBAC layer determines which departments a user can access before retrieved content is passed to the generation layer.
 
-\- Avoid external knowledge
 
-\- Avoid assumptions
 
-\- Return insufficient-context responses when the required information is unavailable
+Access Matrix
 
-\- Map citations to the retrieved document metadata
+Employee Designation	Permitted Departments
 
+Software Engineer	Engineering, Delivery Operations, PMO
 
+Senior Software Engineer	Engineering, Delivery Operations, PMO
 
-\---
+DevOps Lead	Engineering, Delivery Operations
 
+Solutions Architect	Engineering, Delivery Operations, PMO
 
+Engineering Lead	Engineering, Delivery Operations, PMO
 
-\# 🔐 Role-Based Access Control
+Sales Executive	Sales, Human Resources
 
+Business Development Manager	Sales, PMO
 
+Account Manager	Sales
 
-The application applies department-level access control based on employee designation.
+Sales Enablement Lead	Sales, Human Resources, PMO
 
+Delivery Manager	Delivery Operations, PMO, Engineering
 
+PMO Lead	PMO, Delivery Operations, Engineering
 
-| Employee Designation | Permitted Departments |
+Operations Lead	Delivery Operations
 
-|---|---|
+HR Associate	Human Resources
 
-| Software Engineer | Engineering, Delivery Operations, PMO |
+HR Operations Lead	Human Resources
 
-| Senior Software Engineer | Engineering, Delivery Operations, PMO |
+Senior Manager	Engineering, Delivery Operations, PMO, Human Resources, Sales
 
-| DevOps Lead | Engineering, Delivery Operations |
+🔒 RBAC Demonstration
 
-| Solutions Architect | Engineering, Delivery Operations, PMO |
+Authorized Example
 
-| Engineering Lead | Engineering, Delivery Operations, PMO |
 
-| Sales Executive | Sales, Human Resources |
 
-| Business Development Manager | Sales, PMO |
-
-| Account Manager | Sales |
-
-| Sales Enablement Lead | Sales, Human Resources, PMO |
-
-| Delivery Manager | Delivery Operations, PMO, Engineering |
-
-| PMO Lead | PMO, Delivery Operations, Engineering |
-
-| Operations Lead | Delivery Operations |
-
-| HR Associate | Human Resources |
-
-| HR Operations Lead | Human Resources |
-
-| Senior Manager | Engineering, Delivery Operations, PMO, Human Resources, Sales |
-
-
-
-\### Example
-
-
-
-A \*\*Software Engineer\*\* can access Engineering documentation.
-
-
-
-An \*\*HR Associate\*\* can access Human Resources documentation but cannot retrieve Engineering documentation.
-
-
-
-For example:
-
-
-
-```text
-
-HR Associate
-
-&#x20;    ↓
-
-"What are the principles of microservices architecture?"
-
-&#x20;    ↓
-
-Engineering department not permitted
-
-&#x20;    ↓
-
-Access Denied / Insufficient domain context
-
-```
-
-
-
-This prevents unauthorized document retrieval at the application retrieval layer.
-
-
-
-> \*\*Note:\*\* The current demo uses a designation selector to simulate employee identity and RBAC. A production system would integrate this layer with an enterprise identity provider such as SSO/OAuth.
-
-
-
-\---
-
-
-
-\# 📄 Knowledge Base
-
-
-
-The demo knowledge base contains enterprise-style PDF documents covering multiple departments.
-
-
-
-| Document Category | Department |
-
-|---|---|
-
-| Microservices Architecture Specification | Engineering |
-
-| Severity 1 Incident Escalation SOP | Delivery Operations |
-
-| Agile Execution Framework Guide | PMO |
-
-| Global Leave Policy 2026 | Human Resources |
-
-| Cloud Transformation Capability Deck | Sales |
-
-
-
-The PDFs are included in the repository under the `data/` directory.
-
-
-
-\---
-
-
-
-\# 🧠 Grounding \& Hallucination Control
-
-
-
-One of the main design goals is to prevent the LLM from answering using unsupported external knowledge.
-
-
-
-The system uses a strict grounding prompt:
-
-
-
-```text
-
-Answer using ONLY the verified context provided.
-
-
-
-Do NOT use external memory,
-
-general internet knowledge,
-
-or assumptions.
-
-
-
-If the retrieved context does not contain
-
-the required information, return an
-
-insufficient-context response.
-
-```
-
-
-
-\### Example
+Designation: Software Engineer
 
 
 
@@ -516,49 +472,133 @@ Query:
 
 
 
-```text
-
-Who is the CEO of Infosys?
-
-```
+What are the key principles of the Infosys microservices architecture?
 
 
 
-If the retrieved enterprise documents do not contain that information, the system does not attempt to answer from general model knowledge.
+The Software Engineer role has access to the Engineering department.
 
 
 
-Instead, it returns an insufficient-context response.
+Expected flow:
 
 
 
-\---
+Query
+
+&#x20;↓
+
+Engineering access permitted
+
+&#x20;↓
+
+Engineering chunks retrieved
+
+&#x20;↓
+
+Grounded Gemini response
+
+&#x20;↓
+
+Source citation displayed
+
+Restricted Example
 
 
 
-\# 📚 Citation System
+Designation: HR Associate
 
 
 
-Every retrieved document chunk contains metadata identifying:
+Query:
 
 
 
-```text
-
-Document
-
-Page Number
-
-Department
-
-Matched Passage
-
-```
+What are the key principles of the Infosys microservices architecture?
 
 
 
-The final response displays the source document and page number in the Streamlit citation panel.
+The HR Associate role has access only to Human Resources.
+
+
+
+The Engineering department is not permitted.
+
+
+
+Expected response:
+
+
+
+Access Denied /
+
+Insufficient domain context available
+
+for your role clearance.
+
+
+
+No Engineering citation should be returned.
+
+
+
+Demo limitation: The designation selector simulates employee identity and RBAC for demonstration purposes. A production system would integrate this layer with SSO/OAuth/OIDC and a corporate identity provider.
+
+
+
+🛡️ Grounding \& Hallucination Control
+
+
+
+The generation layer uses strict grounding instructions to reduce unsupported LLM responses.
+
+
+
+The model is instructed to:
+
+
+
+Use only the retrieved context.
+
+Avoid external knowledge.
+
+Avoid assumptions.
+
+Avoid unsupported extrapolation.
+
+Return an insufficient-context response when the retrieved documents do not contain the required information.
+
+Map citations to retrieved document metadata.
+
+Grounded Generation Flow
+
+Retrieved Context
+
+&#x20;      +
+
+Employee Query
+
+&#x20;      ↓
+
+Grounded Prompt
+
+&#x20;      ↓
+
+Google Gemini
+
+&#x20;      ↓
+
+Structured Response
+
+📚 Citation System
+
+
+
+Each retrieved chunk contains source metadata.
+
+
+
+The Streamlit application displays this information through the Citation \& Source Panel.
 
 
 
@@ -566,17 +606,27 @@ Example:
 
 
 
-```text
-
-Citation:
+Document:
 
 Infosys\_Microservices\_Architecture\_Spec.pdf
 
-Page: 1
 
-Department: Engineering
 
-```
+Page:
+
+1
+
+
+
+Department:
+
+Engineering
+
+
+
+Matched Passage:
+
+Relevant retrieved document content
 
 
 
@@ -584,85 +634,177 @@ This makes the generated response easier to verify against the original source d
 
 
 
-\---
+📄 Knowledge Base
 
 
 
-\# 🛠️ Technology Stack
+The demonstration knowledge base contains enterprise-style documents across multiple business domains.
 
 
 
-\### AI / RAG
+Document	Department
+
+Infosys Microservices Architecture Specification	Engineering
+
+Infosys Severity 1 Incident Escalation SOP	Delivery Operations
+
+Infosys Agile Execution Framework Guide	PMO
+
+Infosys Global Leave Policy 2026	Human Resources
+
+Infosys Cloud Transformation Capability Deck	Sales
 
 
 
-\- Google Gemini
-
-\- LangChain
-
-\- Retrieval-Augmented Generation
-
-\- Google Generative AI Embeddings
+All source PDFs are stored under:
 
 
 
-\### Vector Database
+data/
+
+🧪 Example Test Cases
+
+Test Case 1 — Engineering RAG Query
 
 
 
-\- ChromaDB
+Designation:
 
 
 
-\### Document Processing
+Software Engineer
 
 
 
-\- PyMuPDF
-
-\- Recursive Character Text Splitter
+Query:
 
 
 
-\### Backend / Application
+What are the key principles of the Infosys microservices architecture?
 
 
 
-\- Python
-
-\- Streamlit
+Expected:
 
 
 
-\### Data \& Validation
+✓ Grounded Answer
+
+✓ Confidence Score
+
+✓ Source Document
+
+✓ Page Number
+
+✓ Matched Passage
+
+Test Case 2 — RBAC Security
 
 
 
-\- Pydantic
-
-\- Python-dotenv
+Designation:
 
 
 
-\### Deployment
+HR Associate
 
 
 
-\- Streamlit Community Cloud
-
-\- GitHub
+Query:
 
 
 
-\---
+What are the key principles of the Infosys microservices architecture?
 
 
 
-\# 📁 Project Structure
+Expected:
 
 
 
-```text
+Access Denied /
+
+Insufficient domain context available
+
+for your role clearance.
+
+
+
+This demonstrates that the HR role cannot retrieve Engineering documentation.
+
+
+
+Test Case 3 — Out-of-Domain Query
+
+
+
+Query:
+
+
+
+How are you?
+
+
+
+Expected behavior:
+
+
+
+Insufficient domain context
+
+
+
+The application is designed as a grounded enterprise knowledge assistant rather than a general-purpose chatbot.
+
+
+
+🛠️ Technology Stack
+
+Programming
+
+Python 3.12
+
+AI / LLM
+
+Google Gemini
+
+Google Generative AI Embeddings
+
+RAG
+
+LangChain
+
+Retrieval-Augmented Generation
+
+Vector Database
+
+ChromaDB
+
+Document Processing
+
+PyMuPDF
+
+RecursiveCharacterTextSplitter
+
+Application
+
+Streamlit
+
+Data Validation
+
+Pydantic
+
+Configuration
+
+python-dotenv
+
+Deployment
+
+GitHub
+
+Streamlit Community Cloud
+
+📁 Project Structure
 
 infosys-ai-knowledge-assistant/
 
@@ -684,11 +826,15 @@ infosys-ai-knowledge-assistant/
 
 │   ├── citation\_builder/
 
+│   │   ├── \_\_init\_\_.py
+
 │   │   └── citation\_formatter.py
 
 │   │
 
 │   ├── grounded\_synthesis/
+
+│   │   ├── \_\_init\_\_.py
 
 │   │   └── synthesis\_engine.py
 
@@ -696,11 +842,15 @@ infosys-ai-knowledge-assistant/
 
 │   ├── query\_classification/
 
+│   │   ├── \_\_init\_\_.py
+
 │   │   └── rbac\_classifier.py
 
 │   │
 
 │   └── rag\_retrieval/
+
+│       ├── \_\_init\_\_.py
 
 │       └── hybrid\_search.py
 
@@ -709,6 +859,8 @@ infosys-ai-knowledge-assistant/
 ├── ingestion\_pipeline/
 
 │   └── embedding\_jobs/
+
+│       ├── \_\_init\_\_.py
 
 │       └── vector\_indexer.py
 
@@ -734,143 +886,111 @@ infosys-ai-knowledge-assistant/
 
 &#x20;   └── package-lock.json
 
-```
+
+
+vector\_db/ is intentionally excluded from Git because it is generated from the source PDFs.
 
 
 
-> `vector\_db/` is generated locally/deployed at runtime and is intentionally excluded from Git because the application can rebuild the knowledge base from the PDF documents when required.
+⚙️ Local Installation
 
-
-
-\---
-
-
-
-\# ⚙️ Local Setup
-
-
-
-\## 1. Clone the repository
-
-
-
-```bash
+1\. Clone the Repository
 
 git clone https://github.com/PAWAN0207/infosys-ai-knowledge-assistant.git
 
 cd infosys-ai-knowledge-assistant
 
-```
-
-
-
-\## 2. Create a virtual environment
-
-
-
-Using Conda:
-
-
-
-```bash
+2\. Create Conda Environment
 
 conda create -n infosys-rag python=3.12
 
 conda activate infosys-rag
 
-```
-
-
-
-\## 3. Install dependencies
-
-
-
-```bash
+3\. Install Dependencies
 
 pip install -r requirements.txt
 
-```
+4\. Configure Environment Variables
 
 
 
-\## 4. Configure Gemini API Key
+Create a .env file in the project root:
 
 
-
-Create a `.env` file in the project root:
-
-
-
-```text
 
 GOOGLE\_API\_KEY=your\_gemini\_api\_key\_here
 
-```
+
+
+Never commit .env or API keys to GitHub.
 
 
 
-> Never commit your `.env` file or API keys to GitHub.
+📦 Build the Vector Database
 
 
 
-\## 5. Build the vector database
+Run the ingestion pipeline:
 
 
-
-```bash
 
 python ingestion\_pipeline/embedding\_jobs/vector\_indexer.py
 
-```
+
+
+Pipeline:
 
 
 
-This processes the PDFs inside `data/`, generates embeddings, and stores them in ChromaDB.
+PDF Documents
+
+&#x20;     ↓
+
+Text Extraction
+
+&#x20;     ↓
+
+Chunking
+
+&#x20;     ↓
+
+Metadata Creation
+
+&#x20;     ↓
+
+Gemini Embeddings
+
+&#x20;     ↓
+
+ChromaDB
+
+▶️ Run the Application
 
 
 
-\## 6. Run the Streamlit application
+Start Streamlit:
 
 
-
-```bash
 
 python -m streamlit run app.py
 
-```
 
 
-
-The application will be available locally at:
-
+The application will be available at:
 
 
-```text
 
 http://localhost:8501
 
-```
+☁️ Deployment
 
 
 
-\---
+The application is deployed using Streamlit Community Cloud.
 
 
 
-\# ☁️ Deployment
-
-
-
-The application is deployed using \*\*Streamlit Community Cloud\*\*.
-
-
-
-\### Deployment configuration
-
-
-
-```text
+Deployment Configuration
 
 Repository:
 
@@ -884,7 +1004,7 @@ main
 
 
 
-Main file:
+Main File:
 
 app.py
 
@@ -894,291 +1014,187 @@ Python:
 
 3.12
 
-```
+
+
+The Gemini API key is stored securely using Streamlit Secrets instead of being committed to GitHub.
 
 
 
-The Gemini API key is configured through Streamlit Secrets rather than being stored in the GitHub repository.
+Example:
 
 
-
-```toml
 
 GOOGLE\_API\_KEY = "your\_gemini\_api\_key"
 
-```
+🔄 Cloud Startup Behavior
 
 
 
-\### Automatic knowledge-base creation
+When deployed, the application checks whether a usable ChromaDB knowledge base exists.
 
 
 
-When deployed, the application checks whether ChromaDB already contains documents.
+If the vector database is missing or empty:
 
 
 
-If the vector database is unavailable or empty:
+PDF Documents
 
+&#x20;     ↓
 
+PyMuPDF
 
-```text
+&#x20;     ↓
 
-PDF files
+Text Chunking
 
-&#x20;  ↓
+&#x20;     ↓
 
-PDF parsing
+Gemini Embeddings
 
-&#x20;  ↓
-
-Chunking
-
-&#x20;  ↓
-
-Gemini embeddings
-
-&#x20;  ↓
+&#x20;     ↓
 
 ChromaDB
 
-```
+&#x20;     ↓
 
+RAG Application
 
 
-The application then uses the generated vector database for retrieval.
 
+This allows the deployed application to initialize its knowledge base from the PDF documents.
 
 
-\---
 
+🔐 Security Considerations
 
+Implemented
 
-\# 🧪 Example Test Cases
+Role-based department filtering
 
+Environment-based API key configuration
 
+No API keys stored in the repository
 
-\## Test 1 — Engineering Access
+Grounded response instructions
 
+Out-of-domain response handling
 
+Source citation metadata
 
-\*\*Designation:\*\*
+Production Improvements
 
 
 
-```text
+For a real enterprise deployment, additional controls would be recommended:
 
-Software Engineer
 
-```
 
+Enterprise SSO
 
+OAuth / OpenID Connect
 
-\*\*Query:\*\*
+Corporate identity provider integration
 
+Server-side authorization
 
+Audit logging
 
-```text
+Hosted vector database
 
-What are the key principles of the Infosys microservices architecture?
+Document-level permissions
 
-```
+Encryption at rest and in transit
 
+Enterprise secret management
 
+Retrieval monitoring
 
-Expected behavior:
+LLM observability
 
 
 
-```text
+This repository demonstrates the application architecture and access-control concept. It is not an official Infosys internal production system.
 
-Grounded Answer
 
-Confidence Score
 
-Source Citation
+💡 Why RAG Instead of Fine-Tuning?
 
-Document Page
 
-Matched Passage
 
-```
+Enterprise policies, SOPs, technical documents, and manuals can change frequently.
 
 
 
-\---
+RAG allows the knowledge base to be updated independently:
 
 
 
-\## Test 2 — RBAC Restriction
-
-
-
-\*\*Designation:\*\*
-
-
-
-```text
-
-HR Associate
-
-```
-
-
-
-\*\*Query:\*\*
-
-
-
-```text
-
-What are the key principles of the Infosys microservices architecture?
-
-```
-
-
-
-Expected behavior:
-
-
-
-```text
-
-Access Denied /
-
-Insufficient domain context available
-
-for your role clearance.
-
-```
-
-
-
-The Engineering document should not be returned to the HR user.
-
-
-
-\---
-
-
-
-\## Test 3 — Out-of-Domain Query
-
-
-
-\*\*Query:\*\*
-
-
-
-```text
-
-How are you?
-
-```
-
-
-
-Expected behavior:
-
-
-
-```text
-
-Insufficient domain context
-
-```
-
-
-
-The system should not generate an unrelated conversational answer because the application is designed as a grounded enterprise knowledge assistant.
-
-
-
-\---
-
-
-
-\# 🎯 Key Features
-
-
-
-\- ✅ Enterprise-style RAG architecture
-
-\- ✅ Semantic document retrieval
-
-\- ✅ Gemini-powered response generation
-
-\- ✅ ChromaDB vector search
-
-\- ✅ Role-based department filtering
-
-\- ✅ Source and page-level citations
-
-\- ✅ Grounded response generation
-
-\- ✅ Zero-extrapolation guardrails
-
-\- ✅ Confidence scoring
-
-\- ✅ Recommended actions
-
-\- ✅ Automatic cloud knowledge-base initialization
-
-\- ✅ Streamlit web interface
-
-\- ✅ GitHub + Streamlit Cloud deployment
-
-
-
-\---
-
-
-
-\# 💡 Why RAG Instead of Fine-Tuning?
-
-
-
-Fine-tuning is not ideal for frequently changing enterprise documents.
-
-
-
-With RAG:
-
-
-
-```text
-
-New / Updated PDF
+Updated Document
 
 &#x20;      ↓
 
-Re-index documents
+Re-index
 
 &#x20;      ↓
 
-Updated vectors
+Updated Vector Database
 
 &#x20;      ↓
 
-New information becomes retrievable
+Updated Retrieval Context
 
-```
+&#x20;      ↓
 
-
-
-The underlying LLM does not need to be retrained every time an enterprise policy changes.
+Latest Grounded Answer
 
 
 
-RAG therefore provides a more practical architecture for document-heavy enterprise knowledge systems.
+The underlying LLM does not need to be retrained whenever a document changes.
 
 
 
-\---
+🎯 Key Learning Outcomes
 
 
 
-\# 🚀 Future Improvements
+This project demonstrates practical experience with:
+
+
+
+Retrieval-Augmented Generation
+
+Vector embeddings
+
+Semantic search
+
+ChromaDB
+
+LangChain
+
+Google Gemini
+
+PDF ingestion pipelines
+
+Metadata-driven retrieval
+
+Role-Based Access Control
+
+Prompt grounding
+
+Hallucination mitigation
+
+Structured LLM responses
+
+Citation generation
+
+Streamlit application development
+
+Cloud deployment
+
+Git and GitHub workflows
+
+🚀 Future Enhancements
 
 
 
@@ -1186,45 +1202,35 @@ Potential production-level improvements include:
 
 
 
-\- Enterprise SSO authentication
+🔐 Enterprise SSO authentication
 
-\- OAuth / OpenID Connect integration
+👤 Automatic employee identity detection
 
-\- User identity from corporate directory
+🔎 Hybrid semantic + keyword retrieval
 
-\- Hosted vector database
+🧠 Re-ranking models
 
-\- Hybrid keyword + semantic retrieval
+📊 Retrieval evaluation metrics
 
-\- Re-ranking models
+🗄️ Hosted vector database
 
-\- Document version management
+📑 Document version management
 
-\- Automated document ingestion
+🔄 Automated document ingestion
 
-\- Audit logging
+📝 Audit logging
 
-\- Retrieval evaluation metrics
+📈 LLM observability
 
-\- LLM observability
+⚙️ CI/CD automation
 
-\- Role-based admin dashboard
+🛡️ Enterprise secret management
 
-\- Automated CI/CD pipeline
+👨‍💼 Admin dashboard
 
-\- Production-grade secrets management
+👨‍💻 Author
 
-
-
-\---
-
-
-
-\# 👨‍💻 Author
-
-
-
-\*\*Pawan Ajay Prasad\*\*
+Pawan Ajay Prasad
 
 
 
@@ -1232,27 +1238,19 @@ Data Analyst | Junior Data Scientist | ML \& GenAI
 
 
 
-\### Profiles
+Core Interests: Python • SQL • Machine Learning • GenAI • RAG • Power BI
 
 
 
-\- GitHub: https://github.com/PAWAN0207
+GitHub: https://github.com/PAWAN0207
 
-\- LinkedIn: https://www.linkedin.com/in/pawan-prasad-analyst/
+LinkedIn: https://www.linkedin.com/in/pawan-prasad-analyst/
 
+⭐ Live Application
 
-
-\---
-
-
-
-\## 🚀 Live Application
+🚀 Launch Infosys AI Knowledge Assistant
 
 
 
-\### \[Launch Infosys AI Knowledge Assistant](https://infosys-ai-knowledge-assistant-qsjefhbgq7np44rb9v597g.streamlit.app/)
-
-
-
-Built with Python, LangChain, Google Gemini, ChromaDB, and Streamlit.
+Built with Python • LangChain • Google Gemini • ChromaDB • Streamlit
 
