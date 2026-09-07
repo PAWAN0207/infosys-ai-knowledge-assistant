@@ -12,7 +12,4 @@ node_modules/
 
 vector_db/
 rag-final/
-
-.git_backup/
-
 .git_backup/
