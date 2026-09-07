@@ -149,4 +149,19 @@ Page Number
 Department
 Chunk ID
 
+---
+
+### 🛡️ Insufficient-Context Handling
+
+The application is designed as an enterprise knowledge assistant rather than a general-purpose chatbot.
+
+When sufficient authorized context is not available, the system can return an insufficient-context response instead of intentionally generating an unsupported answer.
+
+Example:
+
+```text
+Access Denied /
+Insufficient domain context available
+for your role clearance.
+
 
