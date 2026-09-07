@@ -148,7 +148,7 @@ Source Document
 Page Number
 Department
 Chunk ID
-
+```
 ---
 
 ### 🛡️ Insufficient-Context Handling
@@ -163,5 +163,6 @@ Example:
 Access Denied /
 Insufficient domain context available
 for your role clearance.
+```
 
 
