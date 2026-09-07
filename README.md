@@ -206,6 +206,25 @@ GET  /health
 POST /query
 GET  /docs
 ```
+The Streamlit frontend communicates with the FastAPI service over HTTPS.
+
+---
+
+### 🧪 Evaluation Framework
+
+The project includes dedicated evaluation scripts for:
+
+- Retrieval quality
+- RBAC behavior
+- Generation quality
+- Expected keyword/fact coverage
+- Citation presence
+- Expected source document
+- Grounding behavior
+
+Evaluation datasets and scripts are available in the `evaluation/` directory.
+
+---
 
 
 
