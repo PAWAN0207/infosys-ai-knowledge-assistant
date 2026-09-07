@@ -1203,9 +1203,6 @@ Backend — Render
 
 The FastAPI backend is deployed on Render.
 
-API Base URL:
-
-https://infosys-ai-knowledge-assistant-4ovi.onrender.com
 
 Swagger API Documentation:
 
