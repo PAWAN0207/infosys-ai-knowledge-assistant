@@ -466,5 +466,17 @@ The user's designation is converted into a list of permitted departments, and th
 allowed_departments = QueryRBACClassifier.get_allowed_departments(
     designation
 )
+```
 
+The retrieval layer then applies the department restriction during ChromaDB similarity search.
+
+### 🚫 Unauthorized Access
+
+If a user attempts to access information outside their authorized domain, the system can return:
+
+```text
+Access Denied /
+Insufficient domain context available
+for your role clearance.
+```
 
