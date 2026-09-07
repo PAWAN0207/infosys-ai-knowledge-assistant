@@ -94,4 +94,34 @@ Relevant Context
 Grounded Gemini Response
       ↓
 Answer + Citations
+```
+
+## ✨ Key Features
+
+### 🔎 Semantic Search
+
+Users can search enterprise knowledge documents using natural-language questions instead of relying only on exact keyword matching.
+
+The system uses vector embeddings and **ChromaDB similarity search** to retrieve semantically relevant document chunks.
+
+---
+
+### 🔐 Role-Based Access Control
+
+The application maps employee designations to permitted business departments.
+
+RBAC is applied during document retrieval so that only authorized document chunks are available to the generation layer.
+
+```text
+Employee Designation
+        ↓
+Permission Mapping
+        ↓
+Allowed Departments
+        ↓
+ChromaDB Retrieval Filter
+        ↓
+Authorized Document Context
+```
+
 
