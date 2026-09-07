@@ -1164,3 +1164,49 @@ Application Testing
        ├── Citation Verification
        └── Swagger API Validation
 ```
+---
+## ☁️ Deployment — Streamlit + Render
+
+The application is deployed using a separate frontend and backend architecture.
+
+### Deployment Architecture
+
+```text
+                    Internet
+                       │
+                       ▼
+            Streamlit Community Cloud
+                  Frontend UI
+                       │
+                    HTTPS
+                       │
+                       ▼
+                  Render Cloud
+                 FastAPI Backend
+                       │
+              ┌────────┴────────┐
+              ▼                 ▼
+           ChromaDB          Gemini API
+        Vector Retrieval     Generation
+```
+Frontend — Streamlit
+
+The Streamlit application is deployed on Streamlit Community Cloud.
+
+Live Application:
+
+https://infosys-ai-knowledge-assistant-qsjefhbgq7np44rb9v597g.streamlit.app/
+
+The frontend communicates with the FastAPI backend through HTTPS requests.
+
+Backend — Render
+
+The FastAPI backend is deployed on Render.
+
+API Base URL:
+
+https://infosys-ai-knowledge-assistant-4ovi.onrender.com
+
+Swagger API Documentation:
+
+https://infosys-ai-knowledge-assistant-4ovi.onrender.com/docs
