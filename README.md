@@ -1410,3 +1410,17 @@ The project can be extended toward a production-ready enterprise AI platform thr
 - [ ] Automated security and integration testing
 
 ---
+
+## 👨‍💻 Author
+
+**Pawan Ajay Prasad**
+
+Aspiring **AI/ML Engineer & Data Scientist** focused on building practical AI, Machine Learning, and RAG-based applications.
+
+### 🔗 Connect
+
+- 💼 LinkedIn: [Pawan Prasad](https://www.linkedin.com/in/pawan-prasad-analyst/)
+- 🐙 GitHub: [PAWAN0207](https://github.com/PAWAN0207)
+- 📦 Project Repository: [Infosys AI Knowledge Assistant](https://github.com/PAWAN0207/infosys-ai-knowledge-assistant)
+
+---
