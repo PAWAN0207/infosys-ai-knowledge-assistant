@@ -1342,3 +1342,31 @@ Expand the existing CI workflow with unit tests, integration tests, evaluation g
 Introduce asynchronous processing, caching, rate limiting, retries, and horizontal scaling for high-volume enterprise workloads.
 
 ---
+
+## 🎯 Project Takeaways
+
+This project provided hands-on experience in designing and deploying an enterprise-oriented RAG system.
+
+### Key Learnings
+
+- 🔎 **RAG Architecture** — Designed an end-to-end retrieval-augmented generation workflow using document ingestion, embeddings, vector search, and LLM generation.
+
+- 🔐 **Access-Aware AI** — Implemented RBAC at the retrieval layer so authorization is applied before enterprise context reaches the LLM.
+
+- 📚 **Grounded Responses** — Used source metadata and structured generation to improve traceability and reduce unsupported responses.
+
+- 🧩 **Modular Architecture** — Separated the frontend, API, RAG engine, RBAC, ingestion, and evaluation components for maintainability.
+
+- 🧪 **Evaluation-Driven Development** — Built dedicated evaluation workflows for retrieval, RBAC, generation, citations, and grounding behavior.
+
+- ☁️ **Deployment Experience** — Deployed the Streamlit frontend and FastAPI backend as separate services communicating through HTTPS.
+
+- 🔒 **Security Awareness** — Applied environment-based secret management and Git exclusion practices for API credentials.
+
+- ⚙️ **Production Thinking** — Identified scalability, observability, persistent storage, incremental ingestion, and stronger grounding validation as key production requirements.
+
+### Overall Takeaway
+
+The project helped bridge the gap between **building an AI prototype and thinking about how an enterprise RAG system should be designed, evaluated, secured, and deployed**.
+
+---
