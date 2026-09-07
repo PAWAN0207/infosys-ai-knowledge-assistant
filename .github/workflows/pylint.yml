@@ -39,4 +39,5 @@ jobs:
         PYTHONPATH: backend/src
       run: |
         # Run pylint against the package source (putting backend/src on PYTHONPATH lets relative imports resolve)
-        python -m pylint backend/src --rcfile=.pylintrc
+        python -m pylint backend/src
+
