@@ -829,3 +829,22 @@ GET  /health
 POST /query
 GET  /docs
 ```
+### 🔗 API Responsibilities
+
+The FastAPI layer is responsible for connecting the Streamlit frontend with the RAG workflow.
+
+```text
+Streamlit UI
+      ↓
+FastAPI /query
+      ↓
+EnterpriseGroundedEngine
+      ↓
+RAG Processing
+      ↓
+Structured Response
+      ↓
+FastAPI
+      ↓
+Streamlit UI
+```
