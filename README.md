@@ -23,3 +23,18 @@
 </p>
 ---
 
+## 📖 Project Introduction
+
+The **Infosys AI Knowledge Assistant** is an enterprise-style **Retrieval-Augmented Generation (RAG)** application that helps employees retrieve relevant information from internal knowledge documents using natural-language queries.
+
+The system combines **RBAC, semantic search, vector retrieval, Google Gemini, and source citations** to provide secure and grounded responses.
+
+It is designed to work across multiple enterprise domains such as:
+
+- 📘 Engineering
+- 👥 Human Resources
+- 📋 PMO / Project Management
+- 💼 Sales
+- 🚨 Delivery Operations
+
+The main objective is to ensure that users receive **relevant, role-authorized, and traceable information** instead of unrestricted responses from a general-purpose LLM.
