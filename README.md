@@ -533,4 +533,15 @@ Grounded Generation
      ↓
 Cited Response
 ```
+This approach improves **traceability and response reliability** for enterprise knowledge queries.
 
+---
+
+### 📌 Citation Example
+
+A generated response can reference information using the retrieved document metadata:
+
+```text
+Source: Infosys_Microservices_Architecture_Spec.pdf
+Page: 2
+Department: Engineering
