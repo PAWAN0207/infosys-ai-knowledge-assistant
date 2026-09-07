@@ -7,26 +7,156 @@ from ai_workflows.query_classification.rbac_classifier import (
 )
 
 
-# ---------------------------------------------------------
-# Page Configuration
-# ---------------------------------------------------------
+# =========================================================
+# PAGE CONFIGURATION
+# =========================================================
 
 st.set_page_config(
     page_title="Infosys AI Knowledge Assistant",
     page_icon="🤖",
-    layout="wide"
-)
-
-st.title("🤖 Infosys AI Knowledge Assistant")
-st.caption(
-    "Enterprise RAG platform for internal knowledge, "
-    "citation-backed discovery, and secure role-based access."
+    layout="wide",
+    initial_sidebar_state="expanded"
 )
 
 
-# ---------------------------------------------------------
-# Render FastAPI Configuration
-# ---------------------------------------------------------
+# =========================================================
+# CUSTOM CSS
+# =========================================================
+
+st.markdown(
+    """
+<style>
+
+/* =====================================================
+   GLOBAL LAYOUT
+   ===================================================== */
+
+.block-container {
+    max-width: 1400px;
+    padding-top: 2rem;
+    padding-bottom: 1.5rem;
+}
+
+[data-testid="stAppViewContainer"] {
+    background-color: #0e1117;
+}
+
+
+/* =====================================================
+   SIDEBAR
+   ===================================================== */
+
+section[data-testid="stSidebar"] {
+    background-color: #151820;
+    border-right: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+
+/* =====================================================
+   HEADINGS
+   ===================================================== */
+
+h1 {
+    font-size: 2.35rem !important;
+    font-weight: 700 !important;
+    letter-spacing: -0.8px;
+}
+
+h2,
+h3 {
+    font-weight: 650 !important;
+}
+
+
+/* =====================================================
+   CAPTIONS
+   ===================================================== */
+
+[data-testid="stCaptionContainer"] {
+    color: #8f96a3;
+}
+
+
+/* =====================================================
+   BUTTONS
+   ===================================================== */
+
+div.stButton > button {
+    min-height: 44px;
+    border-radius: 8px;
+    font-weight: 600;
+}
+
+
+/* =====================================================
+   TEXT AREA
+   ===================================================== */
+
+textarea {
+    border-radius: 9px !important;
+}
+
+
+/* =====================================================
+   METRICS
+   ===================================================== */
+
+[data-testid="stMetric"] {
+    background: rgba(255, 255, 255, 0.025);
+    border: 1px solid rgba(255, 255, 255, 0.10);
+    border-radius: 10px;
+    padding: 0.8rem;
+}
+
+
+/* =====================================================
+   EXPANDERS
+   ===================================================== */
+
+[data-testid="stExpander"] {
+    border: 1px solid rgba(255, 255, 255, 0.10);
+    border-radius: 9px;
+}
+
+
+/* =====================================================
+   CONTAINERS
+   ===================================================== */
+
+[data-testid="stVerticalBlockBorderWrapper"] {
+    border-radius: 10px;
+}
+
+
+/* =====================================================
+   DIVIDERS
+   ===================================================== */
+
+hr {
+    border-color: rgba(255, 255, 255, 0.10);
+}
+
+
+/* =====================================================
+   FOOTER
+   ===================================================== */
+
+.footer-text {
+    text-align: center;
+    color: #7f8793;
+    font-size: 0.78rem;
+    line-height: 1.6;
+}
+
+</style>
+""",
+    unsafe_allow_html=True
+)
+
+
+# =========================================================
+# API CONFIGURATION
+# =========================================================
 
 RAG_API_URL = os.getenv(
     "RAG_API_URL",
@@ -34,117 +164,184 @@ RAG_API_URL = os.getenv(
 ).rstrip("/")
 
 
-# ---------------------------------------------------------
-# Backend Health Check
-# ---------------------------------------------------------
+# =========================================================
+# SESSION STATE
+# =========================================================
 
+if "response" not in st.session_state:
+    st.session_state.response = None
+
+if "last_query" not in st.session_state:
+    st.session_state.last_query = ""
+
+
+# =========================================================
+# BACKEND HEALTH CHECK
+# =========================================================
+
+@st.cache_data(ttl=30)
 def check_backend_health():
     """Check whether the Render FastAPI backend is available."""
+
     try:
         response = requests.get(
             f"{RAG_API_URL}/health",
             timeout=15
         )
 
-        if response.status_code == 200:
-            return True
+        return response.status_code == 200
 
     except requests.RequestException:
-        pass
-
-    return False
+        return False
 
 
-# ---------------------------------------------------------
-# Sidebar - User Identity & RBAC
-# ---------------------------------------------------------
+# =========================================================
+# HEADER
+# =========================================================
+
+st.title("🤖 Infosys AI Knowledge Assistant")
+
+st.caption(
+    "Enterprise RAG platform for secure knowledge discovery, "
+    "role-aware retrieval, grounded responses, and source citations."
+)
+
+st.divider()
+
+
+# =========================================================
+# SIDEBAR — EMPLOYEE SESSION
+# =========================================================
 
 with st.sidebar:
 
-    st.header("👤 User Session Identity")
+    # -----------------------------------------------------
+    # Employee Session
+    # -----------------------------------------------------
+
+    st.subheader("👤 Employee Session")
 
     designation_list = list(
         ROLE_PERMISSIONS.keys()
     )
 
     user_designation = st.selectbox(
-        "Select Your Employee Designation:",
+        "Employee Designation",
         options=designation_list,
         index=0
     )
-
-    st.markdown("---")
-
-    st.header("⚙️ System Status")
-
-    if check_backend_health():
-
-        st.success(
-            "FastAPI Backend: Connected"
-        )
-
-        st.info(
-            "RAG Engine: Running on Render"
-        )
-
-    else:
-
-        st.error(
-            "FastAPI Backend: Unavailable"
-        )
-
-    # Show current user's allowed departments
 
     allowed_departments = ROLE_PERMISSIONS.get(
         user_designation,
         []
     )
 
-    st.markdown("---")
+    st.divider()
+
+
+    # -----------------------------------------------------
+    # System Status
+    # -----------------------------------------------------
+
+    st.subheader("⚙️ System Status")
+
+    backend_online = check_backend_health()
+
+    with st.container(border=True):
+
+        st.caption("FASTAPI BACKEND")
+
+        if backend_online:
+            st.markdown("🟢 **Connected**")
+        else:
+            st.markdown("🔴 **Unavailable**")
+
+
+    with st.container(border=True):
+
+        st.caption("RAG ENGINE")
+
+        if backend_online:
+            st.markdown("🟢 **Running on Render**")
+        else:
+            st.markdown("🔴 **Unavailable**")
+
+
+    st.divider()
+
+
+    # -----------------------------------------------------
+    # Access Clearance
+    # -----------------------------------------------------
 
     st.subheader("🔐 Access Clearance")
 
-    for department in allowed_departments:
+    if allowed_departments:
 
-        st.write(
-            f"✅ {department}"
+        for department in allowed_departments:
+
+            with st.container(border=True):
+                st.markdown(
+                    f"✅ **{department}**"
+                )
+
+    else:
+
+        st.warning(
+            "No department access assigned."
         )
 
 
-# ---------------------------------------------------------
-# Main Query Workspace
-# ---------------------------------------------------------
+    st.divider()
 
-col1, col2 = st.columns(
-    [1.2, 0.8]
+    st.caption(
+        "Role-based access is enforced at the retrieval layer."
+    )
+
+
+# =========================================================
+# MAIN WORKSPACE
+# =========================================================
+
+query_col, source_col = st.columns(
+    [1.15, 0.85],
+    gap="large"
 )
 
 
-# ---------------------------------------------------------
-# Query Section
-# ---------------------------------------------------------
+# =========================================================
+# QUERY WORKSPACE
+# =========================================================
 
-with col1:
+with query_col:
 
-    st.subheader(
-        "💬 Employee Query Workspace"
+    st.subheader("💬 Employee Query Workspace")
+
+    st.caption(
+        "Ask questions across authorized SOPs, policies, "
+        "technical guides, and enterprise manuals."
     )
 
-    user_query = st.text_input(
-        "Ask a question across SOPs, policies, guides, or manuals:",
+    user_query = st.text_area(
+        "Enter your question",
         placeholder=(
-            "e.g., What is the response SLA "
-            "for Severity 1 incidents?"
-        )
+            "Example: What is the response SLA for "
+            "Severity 1 incidents?"
+        ),
+        height=120,
+        label_visibility="collapsed"
     )
 
     submit_btn = st.button(
-        "Submit Query",
+        "🔎 Submit Query",
         type="primary",
         use_container_width=True
     )
 
-    response = None
+
+    # =====================================================
+    # QUERY PROCESSING
+    # =====================================================
 
     if submit_btn:
 
@@ -162,8 +359,7 @@ with col1:
             }
 
             with st.spinner(
-                f"Querying RAG backend for "
-                f"'{user_designation}'..."
+                "Searching authorized knowledge and generating grounded response..."
             ):
 
                 try:
@@ -176,7 +372,13 @@ with col1:
 
                     if api_response.status_code == 200:
 
-                        response = api_response.json()
+                        st.session_state.response = (
+                            api_response.json()
+                        )
+
+                        st.session_state.last_query = (
+                            user_query.strip()
+                        )
 
                     elif api_response.status_code == 422:
 
@@ -200,70 +402,112 @@ with col1:
                         "or building the knowledge base."
                     )
 
-                except requests.RequestException as exc:
+                except requests.RequestException:
 
                     st.error(
-                        f"Unable to connect to the FastAPI backend: "
-                        f"{exc}"
+                        "Unable to connect to the FastAPI backend. "
+                        "Please try again."
                     )
 
 
-        # -------------------------------------------------
-        # Grounded Answer
-        # -------------------------------------------------
+    # =====================================================
+    # GROUNDED ANSWER
+    # =====================================================
 
-        if response:
-
-            st.markdown(
-                "### 💡 Grounded Answer"
-            )
-
-            st.write(
-                response.get(
-                    "answer",
-                    "No answer generated."
-                )
-            )
-
-            # ---------------------------------------------
-            # Confidence Score
-            # ---------------------------------------------
-
-            confidence = response.get(
-                "confidence_score",
-                0.0
-            )
-
-            st.markdown(
-                f"**Confidence Score:** `{confidence}`"
-            )
-
-            # ---------------------------------------------
-            # Recommended Action
-            # ---------------------------------------------
-
-            st.info(
-                "**Recommended Action:** "
-                + str(
-                    response.get(
-                        "recommended_action",
-                        "No recommendation available."
-                    )
-                )
-            )
-
-
-# ---------------------------------------------------------
-# Citation & Source Panel
-# ---------------------------------------------------------
-
-with col2:
-
-    st.subheader(
-        "📌 Citation & Source Panel"
-    )
+    response = st.session_state.response
 
     if response:
+
+        st.divider()
+
+        st.subheader("💡 Grounded Answer")
+
+        if st.session_state.last_query:
+
+            st.caption(
+                f"Query: {st.session_state.last_query}"
+            )
+
+        answer = response.get(
+            "answer",
+            "No answer generated."
+        )
+
+        with st.container(border=True):
+
+            st.markdown(answer)
+
+        st.markdown("")
+
+
+        # -------------------------------------------------
+        # Response Metrics
+        # -------------------------------------------------
+
+        confidence = response.get(
+            "confidence_score",
+            0.0
+        )
+
+        citations = response.get(
+            "citations",
+            []
+        )
+
+        metric1, metric2 = st.columns(2)
+
+        with metric1:
+
+            st.metric(
+                label="Confidence Score",
+                value=str(confidence)
+            )
+
+        with metric2:
+
+            st.metric(
+                label="Sources Retrieved",
+                value=len(citations)
+            )
+
+
+        # -------------------------------------------------
+        # Recommended Action
+        # -------------------------------------------------
+
+        recommended_action = response.get(
+            "recommended_action",
+            "No recommendation available."
+        )
+
+        st.info(
+            f"**Recommended Action:** {recommended_action}"
+        )
+
+
+# =========================================================
+# CITATION & SOURCE PANEL
+# =========================================================
+
+with source_col:
+
+    st.subheader("📌 Citation & Source Panel")
+
+    st.caption(
+        "Retrieved enterprise context used to support "
+        "the generated response."
+    )
+
+    response = st.session_state.response
+
+    if not response:
+
+        st.info(
+            "Submit a query to view supporting sources "
+            "and citations."
+        )
+
+    else:
 
         citations = response.get(
             "citations",
@@ -273,8 +517,7 @@ with col2:
         if not citations:
 
             st.warning(
-                "No explicit citation sources "
-                "returned for this query."
+                "No explicit citation sources were returned."
             )
 
         else:
@@ -305,35 +548,38 @@ with col2:
                 )
 
                 with st.expander(
-                    f"[{idx}] {document_name} "
-                    f"(Page {page_number})"
+                    f"Source {idx} • "
+                    f"{document_name} • "
+                    f"Page {page_number}"
                 ):
 
-                    st.markdown(
-                        f"**Department:** `{department}`"
+                    st.caption(
+                        "Department"
+                    )
+
+                    st.write(
+                        department
                     )
 
                     st.markdown(
-                        "**Matched Passage:**"
+                        "**Matched Passage**"
                     )
 
                     st.markdown(
-                        f'> *"{matched_passage}"*'
+                        f'> "{matched_passage}"'
                     )
 
 
-# ---------------------------------------------------------
-# Footer
-# ---------------------------------------------------------
+# =========================================================
+# FOOTER
+# =========================================================
 
-st.markdown("---")
+st.divider()
 
 st.caption(
-    "Infosys AI Knowledge Assistant | "
-    "Streamlit + FastAPI + RAG v1.0"
+    "Infosys AI Knowledge Assistant"
 )
 
 st.caption(
-    "Infosys AI Knowledge Assistant | "
-    "Streamlit + FastAPI + RAG v1.0"
+    "RAG v1.0 • Streamlit + FastAPI • Enterprise RAG Demonstration"
 )
