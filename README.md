@@ -337,6 +337,18 @@ Structured Response
     ↓
 Answer + Citations + Confidence + Recommended Action
 ```
+### 1️⃣ Document Ingestion
+
+Enterprise PDF documents are loaded using **PyMuPDF** and divided into smaller chunks using a recursive text splitter.
+
+Each chunk is enriched with metadata such as:
+
+```text
+Source Document
+Page Number
+Department
+Chunk ID
+```
 
 
 
