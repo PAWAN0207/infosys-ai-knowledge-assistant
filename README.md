@@ -372,6 +372,29 @@ Gemini Embeddings
       ↓
 ChromaDB
 ```
+---
+
+### 4️⃣ Role-Aware Retrieval
+
+Before retrieving documents, the employee's designation is mapped to the departments they are authorized to access.
+
+The ChromaDB retrieval is then filtered using the permitted departments.
+
+```text
+Designation
+     ↓
+RBAC Permission Matrix
+     ↓
+Allowed Departments
+     ↓
+Filtered ChromaDB Search
+```
+---
+### 5️⃣ Context Construction
+
+The retrieved document chunks are combined into a structured context block.
+
+The context includes source metadata so that the final response can provide traceable citations.
 
 
 
