@@ -123,5 +123,30 @@ ChromaDB Retrieval Filter
         ↓
 Authorized Document Context
 ```
+---
+
+### 🧠 Grounded Gemini Responses
+
+Google Gemini generates responses using the retrieved document context.
+
+The generation workflow instructs the model to:
+
+- Use the supplied document context
+- Avoid unsupported assumptions
+- Avoid relying on external knowledge
+- Avoid extrapolating beyond the retrieved information
+- Return an insufficient-context response when the available context is not enough
+
+---
+
+### 📚 Source Citations
+
+Retrieved document chunks contain metadata including:
+
+```text
+Source Document
+Page Number
+Department
+Chunk ID
 
 
