@@ -38,3 +38,28 @@ It is designed to work across multiple enterprise domains such as:
 - 🚨 Delivery Operations
 
 The main objective is to ensure that users receive **relevant, role-authorized, and traceable information** instead of unrestricted responses from a general-purpose LLM.
+
+## 🚀 Live Demo
+
+### 👉 [Open the Live Application](https://infosys-ai-knowledge-assistant-qsjefhbgq7np44rb9v597g.streamlit.app/)
+
+The frontend is deployed using **Streamlit Community Cloud** and communicates with the deployed **FastAPI backend** over HTTPS.
+
+### 🔗 Backend API Documentation
+
+👉 [Open FastAPI Swagger Docs](https://infosys-ai-knowledge-assistant-4ovi.onrender.com/docs)
+
+The Swagger interface allows you to test the available API endpoints directly.
+
+### What You Can Test
+
+- 🔎 Semantic document search
+- 🔐 Role-based access control
+- 📚 Source document citations
+- 🧠 Grounded Gemini responses
+- 📊 Confidence score
+- 💡 Recommended action
+- 🛡️ Insufficient-context handling
+- 🚫 Restricted department access
+
+---
