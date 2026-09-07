@@ -495,4 +495,42 @@ Source Document
 Page Number
 Department
 Chunk ID
+```
+This allows users to trace an answer back to the relevant enterprise document and page.
+
+---
+
+### 🧠 Grounded Response Generation
+
+The retrieved and authorized context is provided to **Google Gemini** as the basis for response generation.
+
+The generation instructions emphasize:
+
+- Use only the supplied enterprise context.
+- Do not introduce unsupported facts.
+- Do not rely on external knowledge.
+- Do not extrapolate beyond the retrieved information.
+- Return an insufficient-context response when the available context is not enough.
+
+---
+
+### 🛡️ Context-Aware Answering
+
+The system does not treat every query as a general knowledge question.
+
+Instead, the response depends on:
+
+```text
+User Query
+     ↓
+User Role
+     ↓
+Authorized Retrieval
+     ↓
+Retrieved Context
+     ↓
+Grounded Generation
+     ↓
+Cited Response
+```
 
