@@ -225,6 +225,57 @@ The project includes dedicated evaluation scripts for:
 Evaluation datasets and scripts are available in the `evaluation/` directory.
 
 ---
+## 🏗️ System Architecture
+
+The application follows a layered architecture where the Streamlit frontend communicates with the FastAPI backend, while the RAG engine handles authorization, retrieval, grounding, and response generation.
+
+```text
+                    ┌─────────────────────────┐
+                    │        User / Employee  │
+                    └────────────┬────────────┘
+                                 │
+                                 ▼
+                    ┌─────────────────────────┐
+                    │   Streamlit Frontend    │
+                    │  Interactive Web UI      │
+                    └────────────┬────────────┘
+                                 │ HTTPS
+                                 ▼
+                    ┌─────────────────────────┐
+                    │     FastAPI Backend     │
+                    │      /query /health     │
+                    └────────────┬────────────┘
+                                 │
+                                 ▼
+                    ┌─────────────────────────┐
+                    │       RBAC Layer        │
+                    │ Role → Departments      │
+                    └────────────┬────────────┘
+                                 │
+                                 ▼
+                    ┌─────────────────────────┐
+                    │   RAG Retrieval Engine  │
+                    │  LangChain + ChromaDB   │
+                    └────────────┬────────────┘
+                                 │
+                                 ▼
+                    ┌─────────────────────────┐
+                    │   Authorized Context    │
+                    │ Document Chunks +       │
+                    │ Metadata + Citations    │
+                    └────────────┬────────────┘
+                                 │
+                                 ▼
+                    ┌─────────────────────────┐
+                    │      Google Gemini      │
+                    │   Grounded Generation   │
+                    └────────────┬────────────┘
+                                 │
+                                 ▼
+                    ┌─────────────────────────┐
+                    │ Answer + Citations +    │
+                    │ Confidence + Action     │
+                    └─────────────────────────┘
 
 
 
