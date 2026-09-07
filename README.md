@@ -21,7 +21,6 @@
 <img src="https://img.shields.io/badge/GitHub%20Actions-CI-2088FF?logo=githubactions&logoColor=white" alt="GitHub Actions"/>
 
 </p>
-
 ---
 
 ## 📌 Project Overview
