@@ -545,3 +545,18 @@ A generated response can reference information using the retrieved document meta
 Source: Infosys_Microservices_Architecture_Spec.pdf
 Page: 2
 Department: Engineering
+```
+The citation information is returned as part of the structured response and displayed by the application.
+
+---
+
+### ⚠️ Grounding Boundary
+
+If the retrieved authorized context does not contain enough information to answer a question, the system is designed to avoid intentionally fabricating an answer.
+
+Instead, it can return:
+
+```text
+Access Denied /
+Insufficient domain context available
+for your role clearance.
