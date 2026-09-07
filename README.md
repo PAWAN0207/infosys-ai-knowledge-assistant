@@ -1050,3 +1050,36 @@ To rebuild the knowledge base locally:
 python ingestion_pipeline/embedding_jobs/vector_indexer.py
 ```
 ---
+## ▶️ Run Locally
+
+Start the application locally using the Streamlit frontend and FastAPI backend.
+
+### 1. Start FastAPI Backend
+
+```bash
+uvicorn api:app --host 0.0.0.0 --port 8000
+```
+### 2. Start Streamlit Frontend
+
+Open a second terminal, activate the environment, and run:
+```
+streamlit run app.py
+```
+The application will be available at:
+```
+http://localhost:8501
+```
+Local Architecture
+```
+Browser
+   ↓
+Streamlit :8501
+   ↓
+FastAPI :8000
+   ↓
+RBAC + RAG Engine
+   ↓
+ChromaDB + Gemini
+```
+
+Tip: Start the FastAPI backend before launching Streamlit so the frontend can connect to the API.
