@@ -619,7 +619,6 @@ Department Match Rate:   100.00%
 RBAC Pass Rate:           100.00%
 
 Passed: 25 / 25
-```
 
 Average retrieval latency was approximately **1.21 seconds** across the evaluation run.
 
@@ -651,4 +650,43 @@ Expected Document Citation Rate:   100.00%
 RBAC Generation Pass Rate:         100.00%
 
 Passed: 5 / 5
+```
+
+Average generation latency was approximately **19.6 seconds** for the evaluation run.
+
+---
+
+### 🛡️ Grounding Evaluation
+
+A separate grounding evaluator checks whether generated responses contain the expected facts from the authorized retrieved context.
+
+It evaluates:
+
+- Expected fact coverage
+- Citation presence
+- Expected source document
+- RBAC denial behavior
+- Confidence score
+- Generation latency
+
+The grounding evaluation framework is implemented and can be executed independently.
+
+> **Evaluation Note:** The full grounding run was affected by the Gemini free-tier request quota. Three successfully executed cases achieved 100% expected fact coverage with citations and the expected source document.
+
+Therefore, the project does **not** claim a 100% grounding benchmark from the quota-limited run.
+
+---
+
+### 🧪 Evaluation Files
+
+The evaluation framework is organized under:
+
+```text
+evaluation/
+├── evaluation_dataset.json
+├── generation_evaluation_dataset.json
+├── grounding_evaluation_dataset.json
+├── evaluate_rag.py
+├── evaluate_generation.py
+└── evaluate_grounding.py
 ```
