@@ -1370,3 +1370,43 @@ This project provided hands-on experience in designing and deploying an enterpri
 The project helped bridge the gap between **building an AI prototype and thinking about how an enterprise RAG system should be designed, evaluated, secured, and deployed**.
 
 ---
+## 🗺️ Future Roadmap
+
+The project can be extended toward a production-ready enterprise AI platform through the following roadmap:
+
+### Phase 1 — Data & Retrieval
+
+- [ ] Managed persistent vector database
+- [ ] Incremental document ingestion
+- [ ] Document versioning and change detection
+- [ ] Retrieval quality monitoring
+
+### Phase 2 — Security & Governance
+
+- [ ] Enterprise SSO with OAuth2/OIDC
+- [ ] Fine-grained access policies
+- [ ] Audit logging for user queries and document access
+- [ ] Prompt injection and input validation controls
+
+### Phase 3 — Reliability & Observability
+
+- [ ] Centralized logging and monitoring
+- [ ] Distributed tracing
+- [ ] Automated alerts
+- [ ] Response caching and API rate limiting
+
+### Phase 4 — AI Quality
+
+- [ ] Automated grounding validation
+- [ ] Continuous RAG evaluation
+- [ ] Hallucination detection
+- [ ] Feedback-based response quality monitoring
+
+### Phase 5 — Production Scale
+
+- [ ] Asynchronous document processing
+- [ ] Horizontal API scaling
+- [ ] CI/CD deployment gates
+- [ ] Automated security and integration testing
+
+---
