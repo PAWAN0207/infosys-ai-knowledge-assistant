@@ -6,7 +6,7 @@
   <img src="https://img.shields.io/badge/FastAPI-API%20Docs-009688?logo=fastapi&logoColor=white" alt="FastAPI API Docs"/>
 </a>
 
-<a href="https://infosys-ai-knowledge-assistant-qsjefhbgq7np44rb9v597g.streamlit.app/" target="_blank">
+<a href="https://infosys-ai-knowledge-assistant-qsjefhgbq7np44rb9v597g.streamlit.app/" target="_blank">
   <img src="https://img.shields.io/badge/Streamlit-Live%20App-FF4B4B?logo=streamlit&logoColor=white" alt="Live Streamlit App"/>
 </a>
 
