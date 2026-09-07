@@ -1,34 +1,10 @@
 import os
-import sys
-import platform
-import asyncio
-
-# Fix for Windows asyncio ConnectionResetError
-if platform.system() == "Windows":
-    asyncio.set_event_loop_policy(
-        asyncio.WindowsSelectorEventLoopPolicy()
-    )
-
-# Add project root to Python path
-PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
-if PROJECT_ROOT not in sys.path:
-    sys.path.append(PROJECT_ROOT)
-
+import requests
 import streamlit as st
-from dotenv import load_dotenv
 
-from ai_workflows.grounded_synthesis.synthesis_engine import (
-    EnterpriseGroundedEngine
-)
 from ai_workflows.query_classification.rbac_classifier import (
     ROLE_PERMISSIONS
 )
-from ingestion_pipeline.embedding_jobs.vector_indexer import (
-    EnterprisePDFIndexer
-)
-
-# Load environment variables
-load_dotenv()
 
 
 # ---------------------------------------------------------
@@ -49,135 +25,34 @@ st.caption(
 
 
 # ---------------------------------------------------------
-# Environment Configuration
+# Render FastAPI Configuration
 # ---------------------------------------------------------
 
-GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY")
-
-if not GOOGLE_API_KEY:
-    st.error(
-        "Google API key is not configured. "
-        "Please add GOOGLE_API_KEY to your environment or Streamlit Secrets."
-    )
-    st.stop()
+RAG_API_URL = os.getenv(
+    "RAG_API_URL",
+    "https://infosys-ai-knowledge-assistant-4ovi.onrender.com"
+).rstrip("/")
 
 
 # ---------------------------------------------------------
-# Vector Database Setup
+# Backend Health Check
 # ---------------------------------------------------------
 
-@st.cache_resource
-def setup_vector_database():
-    """
-    Check whether ChromaDB exists and contains documents.
-
-    If the database is missing or empty, automatically build it
-    from the PDF documents available inside the data/ directory.
-    """
-
-    vector_db_path = os.path.join(
-        PROJECT_ROOT,
-        "vector_db"
-    )
-
-    data_path = os.path.join(
-        PROJECT_ROOT,
-        "data"
-    )
-
-    # -----------------------------------------------------
-    # Check existing ChromaDB
-    # -----------------------------------------------------
-
+def check_backend_health():
+    """Check whether the Render FastAPI backend is available."""
     try:
-        from langchain_chroma import Chroma
-        from langchain_google_genai import (
-            GoogleGenerativeAIEmbeddings
+        response = requests.get(
+            f"{RAG_API_URL}/health",
+            timeout=15
         )
 
-        embeddings = GoogleGenerativeAIEmbeddings(
-            model="gemini-embedding-2-preview",
-            google_api_key=GOOGLE_API_KEY
-        )
+        if response.status_code == 200:
+            return True
 
-        db = Chroma(
-            persist_directory=vector_db_path,
-            embedding_function=embeddings
-        )
-
-        document_count = db._collection.count()
-
-        if document_count > 0:
-            return vector_db_path
-
-    except Exception:
-        # If DB doesn't exist or cannot be opened,
-        # create it below.
+    except requests.RequestException:
         pass
 
-    # -----------------------------------------------------
-    # Build Vector Database from PDFs
-    # -----------------------------------------------------
-
-    st.info(
-        "🔄 First-time setup: Building the knowledge base "
-        "from PDF documents..."
-    )
-
-    indexer = EnterprisePDFIndexer(
-        data_root_path=data_path,
-        vector_db_path=vector_db_path,
-        google_api_key=GOOGLE_API_KEY
-    )
-
-    indexer.process_and_index()
-
-    return vector_db_path
-
-
-# ---------------------------------------------------------
-# Initialize Vector Database
-# ---------------------------------------------------------
-
-try:
-
-    vector_db_path = setup_vector_database()
-
-except Exception as e:
-
-    st.error(
-        f"❌ Failed to initialize the knowledge base.\n\n"
-        f"Error: {e}"
-    )
-
-    st.stop()
-
-
-# ---------------------------------------------------------
-# Initialize Grounded RAG Engine
-# ---------------------------------------------------------
-
-@st.cache_resource
-def load_engine(vector_db_path):
-
-    return EnterpriseGroundedEngine(
-        vector_db_path=vector_db_path,
-        google_api_key=GOOGLE_API_KEY
-    )
-
-
-try:
-
-    engine = load_engine(vector_db_path)
-
-except Exception as e:
-
-    st.error(
-        f"❌ Failed to initialize the RAG engine.\n\n"
-        f"Error: {e}"
-    )
-
-    st.stop()
+    return False
 
 
 # ---------------------------------------------------------
@@ -202,15 +77,24 @@ with st.sidebar:
 
     st.header("⚙️ System Status")
 
-    st.success(
-        "Vector DB: Persistent Chroma Connected"
-    )
+    if check_backend_health():
 
-    st.info(
-        "Grounding Model: Gemini 3.6 Flash (T=0.0)"
-    )
+        st.success(
+            "FastAPI Backend: Connected"
+        )
+
+        st.info(
+            "RAG Engine: Running on Render"
+        )
+
+    else:
+
+        st.error(
+            "FastAPI Backend: Unavailable"
+        )
 
     # Show current user's allowed departments
+
     allowed_departments = ROLE_PERMISSIONS.get(
         user_designation,
         []
@@ -222,7 +106,9 @@ with st.sidebar:
 
     for department in allowed_departments:
 
-        st.write(f"✅ {department}")
+        st.write(
+            f"✅ {department}"
+        )
 
 
 # ---------------------------------------------------------
@@ -258,59 +144,113 @@ with col1:
         use_container_width=True
     )
 
-    if submit_btn and user_query.strip():
+    response = None
 
-        with st.spinner(
-            f"Retrieving grounded context "
-            f"for '{user_designation}'..."
-        ):
+    if submit_btn:
 
-            response = engine.generate_response(
-                query=user_query,
-                designation=user_designation
+        if not user_query.strip():
+
+            st.warning(
+                "Please enter a valid question."
             )
 
-        # ---------------------------------------------
+        else:
+
+            request_payload = {
+                "query": user_query.strip(),
+                "designation": user_designation
+            }
+
+            with st.spinner(
+                f"Querying RAG backend for "
+                f"'{user_designation}'..."
+            ):
+
+                try:
+
+                    api_response = requests.post(
+                        f"{RAG_API_URL}/query",
+                        json=request_payload,
+                        timeout=180
+                    )
+
+                    if api_response.status_code == 200:
+
+                        response = api_response.json()
+
+                    elif api_response.status_code == 422:
+
+                        st.error(
+                            "Invalid query request. "
+                            "Please check your input."
+                        )
+
+                    else:
+
+                        st.error(
+                            f"Backend returned HTTP "
+                            f"{api_response.status_code}."
+                        )
+
+                except requests.Timeout:
+
+                    st.error(
+                        "The backend request timed out. "
+                        "The Render service may be starting up "
+                        "or building the knowledge base."
+                    )
+
+                except requests.RequestException as exc:
+
+                    st.error(
+                        f"Unable to connect to the FastAPI backend: "
+                        f"{exc}"
+                    )
+
+
+        # -------------------------------------------------
         # Grounded Answer
-        # ---------------------------------------------
+        # -------------------------------------------------
 
-        st.markdown(
-            "### 📝 Grounded Answer"
-        )
+        if response:
 
-        st.write(
-            response.get(
-                "answer",
-                "No answer generated."
+            st.markdown(
+                "### 💡 Grounded Answer"
             )
-        )
 
-        # ---------------------------------------------
-        # Confidence Score
-        # ---------------------------------------------
-
-        confidence = response.get(
-            "confidence_score",
-            0.0
-        )
-
-        st.markdown(
-            f"**Confidence Score:** `{confidence}`"
-        )
-
-        # ---------------------------------------------
-        # Recommended Action
-        # ---------------------------------------------
-
-        st.info(
-            "**Recommended Action:** "
-            + str(
+            st.write(
                 response.get(
-                    "recommended_action",
-                    "No recommendation available."
+                    "answer",
+                    "No answer generated."
                 )
             )
-        )
+
+            # ---------------------------------------------
+            # Confidence Score
+            # ---------------------------------------------
+
+            confidence = response.get(
+                "confidence_score",
+                0.0
+            )
+
+            st.markdown(
+                f"**Confidence Score:** `{confidence}`"
+            )
+
+            # ---------------------------------------------
+            # Recommended Action
+            # ---------------------------------------------
+
+            st.info(
+                "**Recommended Action:** "
+                + str(
+                    response.get(
+                        "recommended_action",
+                        "No recommendation available."
+                    )
+                )
+            )
 
 
 # ---------------------------------------------------------
@@ -323,7 +263,7 @@ with col2:
         "📌 Citation & Source Panel"
     )
 
-    if submit_btn and user_query.strip():
+    if response:
 
         citations = response.get(
             "citations",
@@ -378,7 +318,7 @@ with col2:
                     )
 
                     st.markdown(
-                        f"> *\"{matched_passage}\"*"
+                        f'> *"{matched_passage}"*'
                     )
 
 
@@ -390,5 +330,10 @@ st.markdown("---")
 
 st.caption(
     "Infosys AI Knowledge Assistant | "
-    "Enterprise RAG Platform v1.0"
+    "Streamlit + FastAPI + RAG v1.0"
+)
+
+st.caption(
+    "Infosys AI Knowledge Assistant | "
+    "Streamlit + FastAPI + RAG v1.0"
 )
