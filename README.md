@@ -415,6 +415,25 @@ Citations
 Confidence Score
 Recommended Action
 ```
+## 🔐 Role-Based Access Control (RBAC)
+
+The application implements **Role-Based Access Control (RBAC)** to ensure that employees can retrieve information only from departments authorized for their designation.
+
+### RBAC Workflow
+
+```text
+Employee Designation
+        ↓
+Permission Matrix
+        ↓
+Allowed Departments
+        ↓
+ChromaDB Metadata Filter
+        ↓
+Authorized Document Chunks
+        ↓
+Gemini Generation
+```
 
 
 
