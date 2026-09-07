@@ -1233,3 +1233,15 @@ GitHub Repository
                             ▼
                        FastAPI Deployment
 ```
+---
+## 🔒 Environment & Secrets
+
+The application uses environment variables for sensitive configuration such as API credentials.
+
+### Environment Configuration
+
+Create a local `.env` file in the project root:
+
+```env
+GOOGLE_API_KEY=your_gemini_api_key
+```
