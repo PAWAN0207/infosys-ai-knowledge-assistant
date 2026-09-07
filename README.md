@@ -619,6 +619,7 @@ Department Match Rate:   100.00%
 RBAC Pass Rate:           100.00%
 
 Passed: 25 / 25
+```
 
 Average retrieval latency was approximately **1.21 seconds** across the evaluation run.
 
@@ -690,3 +691,43 @@ evaluation/
 ├── evaluate_generation.py
 └── evaluate_grounding.py
 ```
+---
+
+## 🛠️ Technology Stack
+
+The project uses a combination of modern AI, backend, vector database, and deployment technologies.
+
+| Category | Technology | Purpose |
+|---|---|---|
+| Programming Language | Python 3.12 | Core application development |
+| Frontend | Streamlit | Interactive user interface |
+| Backend | FastAPI | REST API and backend service |
+| RAG Framework | LangChain | Retrieval and generation workflow |
+| LLM | Google Gemini | Grounded response generation |
+| Embeddings | Google Gemini Embeddings | Document and query vectorization |
+| Vector Database | ChromaDB | Semantic vector storage and retrieval |
+| Document Processing | PyMuPDF | PDF document loading |
+| Text Splitting | Recursive Character Text Splitter | Document chunking |
+| Data Validation | Pydantic | Structured request/response schemas |
+| API Server | Uvicorn | FastAPI application server |
+| HTTP Client | Requests | Streamlit → FastAPI communication |
+| Environment Management | python-dotenv | Environment variable loading |
+| Version Control | Git + GitHub | Source code management |
+| CI | GitHub Actions | Automated code quality checks |
+| Frontend Deployment | Streamlit Community Cloud | Live web application |
+| Backend Deployment | Render | FastAPI deployment |
+
+### 🔧 Core AI Components
+
+```text
+Google Gemini
+     │
+     ├── Gemini Embeddings
+     │
+     └── Gemini LLM
+              │
+              ▼
+         LangChain RAG
+              │
+              ▼
+           ChromaDB
