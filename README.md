@@ -990,12 +990,23 @@ GOOGLE_API_KEY=your_gemini_api_key
 python --version
 pip check
 ```
-
-### Why this version is better
-
-- **Crisp** — recruiter ko unnecessary dependency list nahi dikhani.
-- **Industry-standard flow** — Prerequisites → Clone → Environment → Dependencies → Configuration → Verification.
-- **Security-conscious** — API key handling clearly mentioned.
-- **Reproducible** — exact commands available.
-
 ---
+## 📦 Build Knowledge Base
+
+The application builds its local **ChromaDB vector store** from the enterprise PDF knowledge base.
+
+### Indexing Workflow
+
+```text
+Enterprise PDFs
+      ↓
+PyMuPDF Document Loading
+      ↓
+Recursive Text Splitting
+      ↓
+Metadata Enrichment
+      ↓
+Gemini Embeddings
+      ↓
+ChromaDB Vector Store
+```
