@@ -1281,3 +1281,30 @@ Generation latency depends on the external Gemini API and deployment environment
 The grounding benchmark was partially affected by the Gemini free-tier request quota; therefore, the project does **not** claim a 100% grounding benchmark from that run.
 
 ---
+## ⚠️ Current Limitations
+
+The current implementation is suitable for portfolio and demonstration purposes, with the following production considerations:
+
+### 1. External LLM Dependency
+
+Response generation depends on the availability, latency, and quota limits of the Google Gemini API.
+
+### 2. Vector Store Persistence
+
+The current ChromaDB store is locally generated and is not backed by a managed persistent vector database.
+
+On ephemeral deployment environments, the knowledge base may need to be rebuilt after a restart or redeployment.
+
+### 3. Document Update Workflow
+
+Adding or modifying enterprise documents currently requires rebuilding the vector index. An incremental document ingestion and versioning workflow is not yet implemented.
+
+### 4. Grounding Evaluation Quota
+
+The grounding evaluation framework is implemented, but the complete benchmark run was affected by Gemini free-tier request limits. Therefore, the project does not claim a 100% grounding benchmark from that run.
+
+### 5. Production Observability
+
+The current version provides basic API health monitoring through `/health`. A production deployment would additionally require centralized logging, metrics, tracing, and alerting.
+
+---
