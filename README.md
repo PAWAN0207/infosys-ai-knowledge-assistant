@@ -848,3 +848,37 @@ FastAPI
       ↓
 Streamlit UI
 ```
+### 🧠 Enterprise Grounded Engine
+
+**File:** `ai_workflows/grounded_synthesis/synthesis_engine.py`
+
+The `EnterpriseGroundedEngine` handles the main RAG workflow.
+
+Its responsibilities include:
+
+- Query embedding
+- Role-aware document retrieval
+- ChromaDB similarity search
+- Retrieval validation
+- Context construction
+- Grounded Gemini generation
+- Structured response generation
+- Citation handling
+
+---
+
+### 🔐 RBAC Classifier
+
+**File:** `ai_workflows/query_classification/rbac_classifier.py`
+
+The `QueryRBACClassifier` maps employee designations to the departments they are authorized to access.
+
+Example:
+
+```text
+Software Engineer
+        ↓
+Engineering
+Delivery Operations
+PMO
+```
