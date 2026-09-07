@@ -165,4 +165,47 @@ Insufficient domain context available
 for your role clearance.
 ```
 
+---
+
+### 📊 Confidence Score
+
+The structured response includes a confidence score representing the model's assessment of the available retrieved context.
+
+---
+
+### 💡 Recommended Action
+
+The application can provide a recommended next action along with the generated response.
+
+This helps turn the retrieved information into a more actionable response.
+
+---
+
+### 🖥️ Interactive Streamlit Interface
+
+The Streamlit frontend allows users to:
+
+1. Select an employee designation.
+2. Enter a natural-language query.
+3. Submit the query to the FastAPI backend.
+4. View the generated response.
+5. Review the confidence score.
+6. Review the recommended action.
+7. Inspect source document citations.
+
+---
+
+### 🔗 FastAPI Backend
+
+The RAG functionality is exposed through a FastAPI backend.
+
+The backend provides:
+
+```text
+GET  /health
+POST /query
+GET  /docs
+```
+
+
 
