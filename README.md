@@ -1022,3 +1022,31 @@ Page Number
 Department
 Chunk ID
 ```
+### Automatic Initialization
+
+The FastAPI backend checks whether the ChromaDB knowledge base exists.
+
+If the vector database is missing, the indexing pipeline is automatically triggered before processing the query.
+
+```text
+Vector DB exists?
+      │
+   ┌──┴──┐
+  Yes    No
+   │      │
+   ↓      ↓
+ Query   Build Index
+          │
+          ↓
+       ChromaDB
+          │
+          ↓
+         Query
+```
+### Manual Indexing
+
+To rebuild the knowledge base locally:
+```
+python ingestion_pipeline/embedding_jobs/vector_indexer.py
+```
+---
