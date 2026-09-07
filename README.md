@@ -349,6 +349,29 @@ Page Number
 Department
 Chunk ID
 ```
+---
+
+### 2️⃣ Embedding Generation
+
+The document chunks are converted into vector embeddings using the **Google Gemini embedding model**.
+
+These embeddings allow the system to perform semantic similarity search rather than relying only on keyword matching.
+
+---
+
+### 3️⃣ Vector Storage
+
+The generated embeddings and document chunks are stored in **ChromaDB**, which acts as the vector database for the application.
+
+```text
+PDF Documents
+      ↓
+Text Chunks
+      ↓
+Gemini Embeddings
+      ↓
+ChromaDB
+```
 
 
 
