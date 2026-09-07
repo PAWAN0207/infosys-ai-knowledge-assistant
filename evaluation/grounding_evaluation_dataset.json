@@ -1,0 +1,50 @@
+[
+  {
+    "id": "ground_eng_001",
+    "question": "What security controls are required for inter-service communication?",
+    "designation": "Software Engineer",
+    "expected_supported_facts": [
+      "Mutual TLS (mTLS) authentication",
+      "OAuth2 token validation",
+      "rate-limiting",
+      "payload sanitization"
+    ]
+  },
+  {
+    "id": "ground_hr_001",
+    "question": "How many days of Earned Leave can employees carry forward into the next financial year?",
+    "designation": "HR Associate",
+    "expected_supported_facts": [
+      "45 days",
+      "Earned Leave"
+    ]
+  },
+  {
+    "id": "ground_pmo_001",
+    "question": "What conditions must be satisfied for a user story to meet the Definition of Done?",
+    "designation": "PMO Lead",
+    "expected_supported_facts": [
+      "85% unit test coverage",
+      "SonarQube",
+      "peer code review",
+      "QA Sign-off",
+      "Staging"
+    ]
+  },
+  {
+    "id": "ground_ops_001",
+    "question": "Within how many minutes must a Sev-1 incident be acknowledged?",
+    "designation": "Operations Lead",
+    "expected_supported_facts": [
+      "15 minutes",
+      "On-Call Incident Lead"
+    ]
+  },
+  {
+    "id": "ground_rbac_001",
+    "question": "What are the cloud transformation service offerings?",
+    "designation": "HR Associate",
+    "expected_supported_facts": [],
+    "expected_behavior": "deny"
+  }
+]

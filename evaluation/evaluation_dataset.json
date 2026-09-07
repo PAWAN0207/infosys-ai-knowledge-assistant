@@ -1,0 +1,309 @@
+[
+  {
+    "id": "eng_001",
+    "question": "What principles must new enterprise services follow for microservices decomposition?",
+    "designation": "Software Engineer",
+    "expected_department": "Engineering",
+    "expected_document": "Infosys_Microservices_Architecture_Spec.pdf",
+    "expected_answer_keywords": [
+      "domain-driven design",
+      "independent",
+      "containerized services",
+      "gRPC",
+      "REST API"
+    ]
+  },
+  {
+    "id": "eng_002",
+    "question": "What authentication and security controls are required for inter-service communication?",
+    "designation": "Software Engineer",
+    "expected_department": "Engineering",
+    "expected_document": "Infosys_Microservices_Architecture_Spec.pdf",
+    "expected_answer_keywords": [
+      "Mutual TLS",
+      "mTLS",
+      "OAuth2",
+      "rate-limiting",
+      "payload sanitization"
+    ]
+  },
+  {
+    "id": "eng_003",
+    "question": "What happens to unstructured content in the document ingestion and embedding pipeline?",
+    "designation": "Software Engineer",
+    "expected_department": "Engineering",
+    "expected_document": "Infosys_Microservices_Architecture_Spec.pdf",
+    "expected_answer_keywords": [
+      "parse unstructured content",
+      "structured JSON metadata",
+      "Kafka",
+      "vector embeddings",
+      "ChromaDB",
+      "FAISS"
+    ]
+  },
+  {
+    "id": "eng_004",
+    "question": "Which API security controls must be enforced at the API Gateway layer?",
+    "designation": "Software Engineer",
+    "expected_department": "Engineering",
+    "expected_document": "Infosys_Microservices_Architecture_Spec.pdf",
+    "expected_answer_keywords": [
+      "OAuth2",
+      "rate-limiting",
+      "payload sanitization"
+    ]
+  },
+
+  {
+    "id": "hr_001",
+    "question": "How many Casual Leave and Sick Leave days do employees accrue per calendar year?",
+    "designation": "HR Associate",
+    "expected_department": "Human Resources",
+    "expected_document": "Infosys_Global_Leave_Policy_2026.pdf",
+    "expected_answer_keywords": [
+      "12 days",
+      "Casual Leave",
+      "Sick Leave"
+    ]
+  },
+  {
+    "id": "hr_002",
+    "question": "How far in advance must Casual Leave requests be submitted?",
+    "designation": "HR Associate",
+    "expected_department": "Human Resources",
+    "expected_document": "Infosys_Global_Leave_Policy_2026.pdf",
+    "expected_answer_keywords": [
+      "48 hours",
+      "Enterprise HR Portal"
+    ]
+  },
+  {
+    "id": "hr_003",
+    "question": "When is a medical certificate mandatory for sick leave?",
+    "designation": "HR Associate",
+    "expected_department": "Human Resources",
+    "expected_document": "Infosys_Global_Leave_Policy_2026.pdf",
+    "expected_answer_keywords": [
+      "more than 3 consecutive business days",
+      "medical certificate"
+    ]
+  },
+  {
+    "id": "hr_004",
+    "question": "How many days of Earned Leave can employees carry forward into the next financial year?",
+    "designation": "HR Associate",
+    "expected_department": "Human Resources",
+    "expected_document": "Infosys_Global_Leave_Policy_2026.pdf",
+    "expected_answer_keywords": [
+      "45 days",
+      "carry forward"
+    ]
+  },
+
+  {
+    "id": "pmo_001",
+    "question": "What is the standard sprint duration under the Agile Execution and Delivery Framework?",
+    "designation": "PMO Lead",
+    "expected_department": "PMO",
+    "expected_document": "Infosys_Agile_Execution_Framework_Guide.pdf",
+    "expected_answer_keywords": [
+      "2-week",
+      "sprint cycles"
+    ]
+  },
+  {
+    "id": "pmo_002",
+    "question": "Which governance activities are mandatory during the sprint lifecycle?",
+    "designation": "PMO Lead",
+    "expected_department": "PMO",
+    "expected_document": "Infosys_Agile_Execution_Framework_Guide.pdf",
+    "expected_answer_keywords": [
+      "Sprint Planning",
+      "Daily Standups",
+      "Backlog Refinement",
+      "Sprint Retrospectives",
+      "Jira"
+    ]
+  },
+  {
+    "id": "pmo_003",
+    "question": "What conditions must be satisfied for a user story to meet the Definition of Done?",
+    "designation": "PMO Lead",
+    "expected_department": "PMO",
+    "expected_document": "Infosys_Agile_Execution_Framework_Guide.pdf",
+    "expected_answer_keywords": [
+      "85% unit test coverage",
+      "SonarQube",
+      "peer code review",
+      "QA Sign-off",
+      "Staging"
+    ]
+  },
+  {
+    "id": "pmo_004",
+    "question": "What information must be included in the Weekly Status Report?",
+    "designation": "PMO Lead",
+    "expected_department": "PMO",
+    "expected_document": "Infosys_Agile_Execution_Framework_Guide.pdf",
+    "expected_answer_keywords": [
+      "Sprint Velocity",
+      "Burndown Charts",
+      "Risk Logs",
+      "Budget Utilization"
+    ]
+  },
+
+  {
+    "id": "sales_001",
+    "question": "What operational search latency reduction is stated in the Enterprise Value Proposition?",
+    "designation": "Sales Executive",
+    "expected_department": "Sales",
+    "expected_document": "Infosys_Cloud_Transformation_Capability_Deck.pdf",
+    "expected_answer_keywords": [
+      "40%",
+      "operational search latency"
+    ]
+  },
+  {
+    "id": "sales_002",
+    "question": "What are the core service offerings described in the Cloud Transformation capability deck?",
+    "designation": "Sales Executive",
+    "expected_department": "Sales",
+    "expected_document": "Infosys_Cloud_Transformation_Capability_Deck.pdf",
+    "expected_answer_keywords": [
+      "Legacy Application Refactoring",
+      "Cloud-Native Microservices Migration",
+      "Generative AI Integration",
+      "Managed Security Operations",
+      "Enterprise Knowledge Graphs"
+    ]
+  },
+  {
+    "id": "sales_003",
+    "question": "What type of organizations does the Enterprise Value Proposition target?",
+    "designation": "Sales Executive",
+    "expected_department": "Sales",
+    "expected_document": "Infosys_Cloud_Transformation_Capability_Deck.pdf",
+    "expected_answer_keywords": [
+      "Global 2000 enterprises"
+    ]
+  },
+  {
+    "id": "sales_004",
+    "question": "What annual cost savings were reported in the financial institution RAG Knowledge Assistant case study?",
+    "designation": "Sales Executive",
+    "expected_department": "Sales",
+    "expected_document": "Infosys_Cloud_Transformation_Capability_Deck.pdf",
+    "expected_answer_keywords": [
+      "$2.4M",
+      "annual cost savings",
+      "IT service desk"
+    ]
+  },
+
+  {
+    "id": "ops_001",
+    "question": "Within how many minutes must a Sev-1 incident be acknowledged?",
+    "designation": "Operations Lead",
+    "expected_department": "Delivery Operations",
+    "expected_document": "Infosys_Severity_1_Incident_Escalation_SOP.pdf",
+    "expected_answer_keywords": [
+      "15 minutes",
+      "On-Call Incident Lead"
+    ]
+  },
+  {
+    "id": "ops_002",
+    "question": "What must the Incident Commander do immediately after confirming a Sev-1 outage?",
+    "designation": "Operations Lead",
+    "expected_department": "Delivery Operations",
+    "expected_document": "Infosys_Severity_1_Incident_Escalation_SOP.pdf",
+    "expected_answer_keywords": [
+      "Emergency Bridge Call",
+      "Domain Delivery Heads"
+    ]
+  },
+  {
+    "id": "ops_003",
+    "question": "Within how many minutes must a dedicated Slack or Teams war room be provisioned for a Sev-1 outage?",
+    "designation": "Operations Lead",
+    "expected_department": "Delivery Operations",
+    "expected_document": "Infosys_Severity_1_Incident_Escalation_SOP.pdf",
+    "expected_answer_keywords": [
+      "20 minutes",
+      "Slack",
+      "Teams",
+      "war room"
+    ]
+  },
+  {
+    "id": "ops_004",
+    "question": "What are the deadlines for the preliminary Incident Communication Report and the comprehensive RCA?",
+    "designation": "Operations Lead",
+    "expected_department": "Delivery Operations",
+    "expected_document": "Infosys_Severity_1_Incident_Escalation_SOP.pdf",
+    "expected_answer_keywords": [
+      "2 hours",
+      "5 business days",
+      "Root Cause Analysis",
+      "RCA"
+    ]
+  },
+
+  {
+    "id": "rbac_001",
+    "question": "What is the microservices architecture?",
+    "designation": "HR Associate",
+    "expected_department": "Engineering",
+    "expected_document": "Infosys_Microservices_Architecture_Spec.pdf",
+    "expected_answer_keywords": [
+      "Access Denied"
+    ],
+    "expected_behavior": "deny"
+  },
+  {
+    "id": "rbac_002",
+    "question": "What is the leave entitlement policy?",
+    "designation": "Software Engineer",
+    "expected_department": "Human Resources",
+    "expected_document": "Infosys_Global_Leave_Policy_2026.pdf",
+    "expected_answer_keywords": [
+      "Access Denied"
+    ],
+    "expected_behavior": "deny"
+  },
+  {
+    "id": "rbac_003",
+    "question": "What is the Definition of Done?",
+    "designation": "Sales Executive",
+    "expected_department": "PMO",
+    "expected_document": "Infosys_Agile_Execution_Framework_Guide.pdf",
+    "expected_answer_keywords": [
+      "Access Denied"
+    ],
+    "expected_behavior": "deny"
+  },
+  {
+    "id": "rbac_004",
+    "question": "What are the Sev-1 incident response requirements?",
+    "designation": "HR Associate",
+    "expected_department": "Delivery Operations",
+    "expected_document": "Infosys_Severity_1_Incident_Escalation_SOP.pdf",
+    "expected_answer_keywords": [
+      "Access Denied"
+    ],
+    "expected_behavior": "deny"
+  },
+  {
+    "id": "rbac_005",
+    "question": "What are the cloud transformation service offerings?",
+    "designation": "Software Engineer",
+    "expected_department": "Sales",
+    "expected_document": "Infosys_Cloud_Transformation_Capability_Deck.pdf",
+    "expected_answer_keywords": [
+      "Access Denied"
+    ],
+    "expected_behavior": "deny"
+  }
+]

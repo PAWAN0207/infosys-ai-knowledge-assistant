@@ -1,0 +1,54 @@
+[
+  {
+    "id": "gen_eng_001",
+    "question": "What security controls are required for inter-service communication?",
+    "designation": "Software Engineer",
+    "expected_behavior": "allow",
+    "expected_keywords": [
+      "mTLS"
+    ],
+    "expected_document": "Infosys_Microservices_Architecture_Spec.pdf"
+  },
+  {
+    "id": "gen_hr_001",
+    "question": "How many days of Earned Leave can employees carry forward into the next financial year?",
+    "designation": "HR Associate",
+    "expected_behavior": "allow",
+    "expected_keywords": [
+      "45 days"
+    ],
+    "expected_document": "Infosys_Global_Leave_Policy_2026.pdf"
+  },
+  {
+    "id": "gen_pmo_001",
+    "question": "What conditions must be satisfied for a user story to meet the Definition of Done?",
+    "designation": "PMO Lead",
+    "expected_behavior": "allow",
+    "expected_keywords": [
+      "85%",
+      "unit test coverage",
+      "SonarQube",
+      "peer code review",
+      "QA Sign-off"
+    ],
+    "expected_document": "Infosys_Agile_Execution_Framework_Guide.pdf"
+  },
+  {
+    "id": "gen_ops_001",
+    "question": "Within how many minutes must a Sev-1 incident be acknowledged?",
+    "designation": "Operations Lead",
+    "expected_behavior": "allow",
+    "expected_keywords": [
+      "15 minutes"
+    ],
+    "expected_document": "Infosys_Severity_1_Incident_Escalation_SOP.pdf"
+  },
+  {
+    "id": "gen_rbac_001",
+    "question": "What are the cloud transformation service offerings?",
+    "designation": "HR Associate",
+    "expected_behavior": "deny",
+    "expected_keywords": [],
+    "expected_document": "Infosys_Cloud_Transformation_Capability_Deck.pdf"
+  }
+]

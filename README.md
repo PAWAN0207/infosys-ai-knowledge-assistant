@@ -99,51 +99,60 @@ Employees can select their designation, submit a natural-language query, and vie
 
 # 🏗️ System Architecture
 
-The application follows a Retrieval-Augmented Generation architecture where access control is applied before document context is sent to the LLM.
+The application follows a layered Retrieval-Augmented Generation (RAG)
+architecture. The Streamlit frontend communicates with a FastAPI backend,
+which applies RBAC before retrieving authorized document context from ChromaDB.
 
 ```text
-+-------------------+
-|     Employee      |
-|      Query        |
-+---------+---------+
-          |
-          v
-+-------------------+
-| Employee          |
-| Designation       |
-+---------+---------+
-          |
-          v
-+-------------------+
-| RBAC Department   |
-|     Filter        |
-+---------+---------+
-          |
-          v
-+-------------------+
-|     ChromaDB      |
-| Semantic Retrieval|
-+---------+---------+
-          |
-          v
-+-------------------+
-| Relevant Document |
-|      Chunks       |
-+---------+---------+
-          |
-          v
-+-------------------+
-| Grounded Context  |
-|      Builder      |
-+---------+---------+
-          |
-          v
-+-------------------+
-|   Google Gemini   |
-|  Response Engine  |
-+---------+---------+
-          |
-          v
++----------------------+
+|      Employee        |
+|       Query          |
++----------+-----------+
+           |
+           v
++----------------------+
+| Streamlit Frontend   |
+| Community Cloud      |
++----------+-----------+
+           |
+           | HTTPS
+           v
++----------------------+
+|    FastAPI Backend   |
+|      Render          |
++----------+-----------+
+           |
+           v
++----------------------+
+|   RBAC Permission    |
+|       Filter         |
++----------+-----------+
+           |
+           v
++----------------------+
+|       ChromaDB       |
+| Semantic Retrieval   |
++----------+-----------+
+           |
+           v
++----------------------+
+| Authorized Document  |
+|       Chunks         |
++----------+-----------+
+           |
+           v
++----------------------+
+|  Grounded Context    |
+|       Builder        |
++----------+-----------+
+           |
+           v
++----------------------+
+|     Google Gemini    |
+|   Response Engine    |
++----------+-----------+
+           |
+           v
 +-----------------------------+
 |       Final Response        |
 |                             |
@@ -152,8 +161,6 @@ The application follows a Retrieval-Augmented Generation architecture where acce
 |  Recommended Action         |
 |  Source Citation            |
 +-----------------------------+
-```
-
 ---
 
 # 🔄 RAG Pipeline
