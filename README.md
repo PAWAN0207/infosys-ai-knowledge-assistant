@@ -882,3 +882,28 @@ Engineering
 Delivery Operations
 PMO
 ```
+The resulting department list is used to restrict ChromaDB retrieval.
+
+---
+
+### 📚 Vector Indexer
+
+**File:** `ingestion_pipeline/embedding_jobs/vector_indexer.py`
+
+The vector indexer creates the ChromaDB knowledge base from enterprise PDF documents.
+
+The indexing workflow is:
+
+```text
+PDF Documents
+      ↓
+PyMuPDF Loading
+      ↓
+Recursive Text Splitting
+      ↓
+Metadata Enrichment
+      ↓
+Gemini Embeddings
+      ↓
+ChromaDB
+```
