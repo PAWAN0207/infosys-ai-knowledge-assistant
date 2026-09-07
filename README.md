@@ -306,5 +306,37 @@ RBAC + RAG Engine
 
 ---
 
+## 🔄 RAG Pipeline
+
+The application follows a structured **Retrieval-Augmented Generation (RAG)** pipeline to retrieve relevant enterprise information and generate grounded responses.
+
+### Step-by-Step RAG Workflow
+
+```text
+User Query
+    ↓
+Query + Employee Designation
+    ↓
+RBAC Permission Mapping
+    ↓
+Allowed Department Filter
+    ↓
+Query Embedding
+    ↓
+ChromaDB Similarity Search
+    ↓
+Top-K Relevant Document Chunks
+    ↓
+Retrieval Validation
+    ↓
+Citation Context Builder
+    ↓
+Grounded Gemini Generation
+    ↓
+Structured Response
+    ↓
+Answer + Citations + Confidence + Recommended Action
+```
+
 
 
