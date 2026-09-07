@@ -1207,3 +1207,29 @@ The FastAPI backend is deployed on Render.
 Swagger API Documentation:
 
 https://infosys-ai-knowledge-assistant-4ovi.onrender.com/docs
+
+### Deployment Configuration
+
+| Component | Platform | Purpose |
+|---|---|---|
+| Frontend | Streamlit Community Cloud | Interactive web UI |
+| Backend | Render | FastAPI REST API |
+| LLM | Google Gemini | Grounded response generation |
+| Vector Store | ChromaDB | Semantic retrieval |
+| Source Control | GitHub | Code and version management |
+
+### Deployment Flow
+
+```text
+GitHub Repository
+       │
+       ├──────────────► Streamlit Community Cloud
+       │                    │
+       │                    ▼
+       │              Frontend Deployment
+       │
+       └──────────────► Render
+                            │
+                            ▼
+                       FastAPI Deployment
+```
