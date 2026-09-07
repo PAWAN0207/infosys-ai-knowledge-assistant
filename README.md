@@ -479,4 +479,20 @@ Access Denied /
 Insufficient domain context available
 for your role clearance.
 ```
+---
+## 📚 Citation & Grounding
+
+The system is designed to keep generated responses connected to the retrieved enterprise documents.
+
+### 🔗 Source Traceability
+
+Each retrieved document chunk contains metadata that can be used to identify the source of the information.
+
+The citation metadata includes:
+
+```text
+Source Document
+Page Number
+Department
+Chunk ID
 
