@@ -619,3 +619,36 @@ Department Match Rate:   100.00%
 RBAC Pass Rate:           100.00%
 
 Passed: 25 / 25
+```
+
+Average retrieval latency was approximately **1.21 seconds** across the evaluation run.
+
+---
+
+### 🧠 Generation Evaluation
+
+The generation evaluator tests the complete RAG generation workflow using the production `EnterpriseGroundedEngine`.
+
+It evaluates:
+
+- Expected keyword coverage
+- Citation presence
+- Expected source document citation
+- RBAC denial behavior
+- Confidence score
+- Generation latency
+
+The generation evaluation dataset contains **5 test cases** covering authorized queries and an RBAC denial scenario.
+
+### ✅ Generation Evaluation Results
+
+```text
+Overall Pass Rate:                 100.00%
+Authorized Generation Pass Rate:   100.00%
+Expected Keyword Coverage:         100.00%
+Citation Presence Rate:            100.00%
+Expected Document Citation Rate:   100.00%
+RBAC Generation Pass Rate:         100.00%
+
+Passed: 5 / 5
+```
