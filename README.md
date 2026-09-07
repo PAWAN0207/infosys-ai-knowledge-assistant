@@ -1424,3 +1424,31 @@ Aspiring **AI/ML Engineer & Data Scientist** focused on building practical AI, M
 - 📦 Project Repository: [Infosys AI Knowledge Assistant](https://github.com/PAWAN0207/infosys-ai-knowledge-assistant)
 
 ---
+
+## 📌 Repository & Disclaimer
+
+### 🔗 Repository
+
+👉 [GitHub Repository](https://github.com/PAWAN0207/infosys-ai-knowledge-assistant)
+
+The complete source code, evaluation framework, configuration templates, and project documentation are available in this repository.
+
+### ⚠️ Disclaimer
+
+This project is an **educational and portfolio implementation** of an enterprise-style AI Knowledge Assistant.
+
+The documents and enterprise information used in the project are **sample/demo data created for demonstration purposes** and should not be treated as official Infosys policies, procedures, or proprietary information.
+
+The system is intended to demonstrate concepts such as:
+
+- Retrieval-Augmented Generation (RAG)
+- Role-Based Access Control (RBAC)
+- Semantic Search
+- Grounded LLM Responses
+- Source Citations
+- AI Evaluation
+- API-based deployment
+
+It is **not an official Infosys product or system** and is not affiliated with or endorsed by Infosys Limited.
+
+---
