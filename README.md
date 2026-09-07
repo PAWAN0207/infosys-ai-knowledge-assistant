@@ -1010,3 +1010,15 @@ Gemini Embeddings
       ↓
 ChromaDB Vector Store
 ```
+### Document Processing
+
+Each PDF is loaded and split into smaller chunks using a recursive text splitter.
+
+Each chunk is enriched with metadata:
+
+```text
+Source Document
+Page Number
+Department
+Chunk ID
+```
