@@ -1308,3 +1308,37 @@ The grounding evaluation framework is implemented, but the complete benchmark ru
 The current version provides basic API health monitoring through `/health`. A production deployment would additionally require centralized logging, metrics, tracing, and alerting.
 
 ---
+
+## 🚀 Production Improvements
+
+The following improvements would strengthen the system for enterprise-scale production deployment:
+
+### 🔹 Managed Vector Database
+
+Move from local ChromaDB persistence to a managed vector database with durable storage, backups, and scalable retrieval.
+
+### 🔹 Incremental Document Ingestion
+
+Introduce document versioning, change detection, and incremental indexing so that only new or modified documents are re-embedded.
+
+### 🔹 Production Observability
+
+Add centralized logging, metrics, distributed tracing, and alerting to monitor API health, retrieval quality, latency, failures, and model usage.
+
+### 🔹 Stronger Grounding Validation
+
+Add an automated response-validation layer to verify that generated claims are supported by retrieved context before returning the response.
+
+### 🔹 Enterprise Authentication
+
+Integrate the RBAC layer with an enterprise identity provider such as OAuth2/OIDC or SSO instead of relying only on application-level designation selection.
+
+### 🔹 CI/CD & Automated Testing
+
+Expand the existing CI workflow with unit tests, integration tests, evaluation gates, security scanning, and automated deployment checks.
+
+### 🔹 Scalability & Reliability
+
+Introduce asynchronous processing, caching, rate limiting, retries, and horizontal scaling for high-volume enterprise workloads.
+
+---
