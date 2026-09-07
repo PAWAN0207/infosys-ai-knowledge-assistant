@@ -5,38 +5,41 @@ on: [push]
 jobs:
   build:
     runs-on: ubuntu-latest
+
     strategy:
       matrix:
         python-version: ["3.12"]
+
     steps:
-    - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-    - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v4
-      with:
-        python-version: ${{ matrix.python-version }}
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
 
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        # Install project dependencies if a requirements file exists
-        if [ -f backend/requirements.txt ]; then
-          pip install -r backend/requirements.txt
-        elif [ -f requirements.txt ]; then
-          pip install -r requirements.txt
-        elif [ -f backend/pyproject.toml ]; then
-          pip install poetry
-          poetry install --no-interaction --no-ansi
-        else
-          # Fallback: install common runtime deps used by the project so pylint can resolve imports
-          pip install fastapi pydantic sqlalchemy chromadb PyJWT passlib bcrypt
-        fi
-        # Always install pylint
-        pip install pylint
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
 
-     - name: Run pylint
-      env:
-        PYTHONPATH: .
-      run: |
-        # Run pylint against the actual RAG application source
-        python -m pylint app.py ai_workflows ingestion_pipeline
+          # Install project dependencies
+          if [ -f requirements.txt ]; then
+            pip install -r requirements.txt
+          elif [ -f backend/requirements.txt ]; then
+            pip install -r backend/requirements.txt
+          elif [ -f backend/pyproject.toml ]; then
+            pip install poetry
+            poetry install --no-interaction --no-ansi
+          else
+            pip install fastapi pydantic sqlalchemy chromadb PyJWT passlib bcrypt
+          fi
+
+          # Always install pylint
+          pip install pylint
+
+      - name: Run pylint
+        env:
+          PYTHONPATH: .
+        run: |
+          # Run pylint against the actual RAG application source
+          python -m pylint app.py ai_workflows ingestion_pipeline
