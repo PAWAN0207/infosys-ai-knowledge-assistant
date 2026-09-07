@@ -560,3 +560,21 @@ Instead, it can return:
 Access Denied /
 Insufficient domain context available
 for your role clearance.
+```
+---
+## 🧪 Evaluation & Testing
+
+The project includes a dedicated evaluation framework to measure **retrieval quality, RBAC behavior, generation quality, citation accuracy, and grounding behavior**.
+
+### 📊 Evaluation Components
+
+The evaluation framework covers three major areas:
+
+```text
+Evaluation Framework
+        │
+        ├── Retrieval Evaluation
+        │
+        ├── Generation Evaluation
+        │
+        └── Grounding Evaluation
