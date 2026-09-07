@@ -395,6 +395,26 @@ Filtered ChromaDB Search
 The retrieved document chunks are combined into a structured context block.
 
 The context includes source metadata so that the final response can provide traceable citations.
+---
+
+### 6️⃣ Grounded Generation
+
+The authorized context is passed to **Google Gemini** with instructions to generate the response using only the supplied enterprise context.
+
+The generation layer is instructed to avoid unsupported assumptions and return an insufficient-context response when the retrieved information is not enough.
+
+---
+
+### 7️⃣ Structured Response
+
+The final response follows a structured schema containing:
+
+```text
+Answer
+Citations
+Confidence Score
+Recommended Action
+```
 
 
 
