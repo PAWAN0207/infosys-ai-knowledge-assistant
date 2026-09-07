@@ -1245,3 +1245,39 @@ Create a local `.env` file in the project root:
 ```env
 GOOGLE_API_KEY=your_gemini_api_key
 ```
+---
+## 📊 Performance & Reliability
+
+The system was evaluated using dedicated retrieval, generation, and grounding test suites.
+
+### Evaluation Results
+
+| Metric | Result |
+|---|---:|
+| Retrieval Pass Rate | **100% (25/25)** |
+| Hit@1 | **100%** |
+| Hit@3 | **100%** |
+| Hit@5 | **100%** |
+| Mean Reciprocal Rank | **1.0000** |
+| Department Match Rate | **100%** |
+| RBAC Pass Rate | **100%** |
+| Generation Pass Rate | **100% (5/5)** |
+| Citation Presence | **100%** |
+| Expected Document Citation | **100%** |
+
+### Reliability Design
+
+- **RBAC-first retrieval** prevents unauthorized department context from reaching the generation layer.
+- **Source metadata** enables response traceability.
+- **Automatic vector-store initialization** allows the backend to rebuild the knowledge base when the local ChromaDB store is missing.
+- **Insufficient-context handling** prevents unsupported responses when authorized context is unavailable.
+- **Structured generation** keeps the response format consistent across the application.
+- **API health checks** provide a basic backend availability check through `/health`.
+
+### Performance Note
+
+Generation latency depends on the external Gemini API and deployment environment. The measured generation evaluation averaged approximately **19.6 seconds per query** in the test environment.
+
+The grounding benchmark was partially affected by the Gemini free-tier request quota; therefore, the project does **not** claim a 100% grounding benchmark from that run.
+
+---
