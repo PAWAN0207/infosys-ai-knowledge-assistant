@@ -295,5 +295,16 @@ RBAC + RAG Engine
    ├── ChromaDB
    │
    └── Google Gemini
+```
+### Architecture Principles
+
+- **Separation of concerns** between frontend, API, RBAC, retrieval, and generation.
+- **Role-aware retrieval** before the LLM receives document context.
+- **Grounded generation** using retrieved enterprise documents.
+- **Source traceability** through document and page metadata.
+- **API-based communication** between the Streamlit frontend and FastAPI backend.
+
+---
+
 
 
