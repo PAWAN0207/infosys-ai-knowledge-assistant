@@ -792,3 +792,40 @@ infosys-ai-knowledge-assistant/
 | `.gitignore` | Files excluded from Git |
 
 ---
+
+## 🧩 Core Components
+
+The application is divided into modular components, with each component responsible for a specific part of the RAG workflow.
+
+### 🖥️ Streamlit Frontend
+
+**File:** `app.py`
+
+The Streamlit application provides the user-facing interface.
+
+Responsibilities include:
+
+- Employee designation selection
+- Natural-language query input
+- FastAPI API communication
+- Response display
+- Confidence score display
+- Recommended action display
+- Source citation display
+- API connection status
+
+---
+
+### 🔗 FastAPI Backend
+
+**File:** `api.py`
+
+The FastAPI service acts as the backend API layer between the frontend and the RAG engine.
+
+Main endpoints:
+
+```text
+GET  /health
+POST /query
+GET  /docs
+```
