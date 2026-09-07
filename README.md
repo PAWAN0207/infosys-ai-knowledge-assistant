@@ -63,3 +63,34 @@ The Swagger interface allows you to test the available API endpoints directly.
 - 🚫 Restricted department access
 
 ---
+
+## 📌 Project Overview
+
+The **Infosys AI Knowledge Assistant** is an enterprise-style RAG application designed to help employees retrieve information from internal knowledge documents using natural-language queries.
+
+The system works with enterprise knowledge across multiple business domains:
+
+- 📘 Technical Engineering Guides
+- 👥 Human Resources Policies
+- 📋 PMO / Project Management Documents
+- 💼 Sales & Business Development Documents
+- 🚨 Delivery Operations SOPs
+
+Instead of directly asking an LLM to answer a question using its general knowledge, the application first retrieves relevant information from the authorized enterprise knowledge base.
+
+The retrieved document context is then provided to **Google Gemini** to generate a grounded response.
+
+### High-Level Workflow
+
+```text
+Employee Query
+      ↓
+Role & Permission Check
+      ↓
+Authorized Document Retrieval
+      ↓
+Relevant Context
+      ↓
+Grounded Gemini Response
+      ↓
+Answer + Citations
