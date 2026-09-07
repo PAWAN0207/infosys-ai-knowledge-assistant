@@ -578,3 +578,44 @@ Evaluation Framework
         ├── Generation Evaluation
         │
         └── Grounding Evaluation
+```
+---
+
+### 🔎 Retrieval Evaluation
+
+The retrieval evaluation tests whether the correct enterprise document and department are retrieved for a given query.
+
+The evaluation dataset contains:
+
+- 20 authorized RAG test cases
+- 5 RBAC denial test cases
+- Multiple enterprise departments
+- Expected documents and answer keywords
+
+The following metrics are calculated:
+
+| Metric | Description |
+|---|---|
+| Hit@1 | Expected document appears as the top result |
+| Hit@3 | Expected document appears within top 3 results |
+| Hit@5 | Expected document appears within top 5 results |
+| MRR | Mean Reciprocal Rank of the expected result |
+| Department Match Rate | Retrieved department matches the expected department |
+| RBAC Pass Rate | Authorization behavior matches expectations |
+
+---
+
+### ✅ Retrieval Evaluation Results
+
+The production RBAC configuration was evaluated against the retrieval test dataset.
+
+```text
+Overall Pass Rate:        100.00%
+Hit@1:                    100.00%
+Hit@3:                    100.00%
+Hit@5:                    100.00%
+Mean Reciprocal Rank:     1.0000
+Department Match Rate:   100.00%
+RBAC Pass Rate:           100.00%
+
+Passed: 25 / 25
