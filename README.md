@@ -276,6 +276,24 @@ The application follows a layered architecture where the Streamlit frontend comm
                     │ Answer + Citations +    │
                     │ Confidence + Action     │
                     └─────────────────────────┘
+```
+### Deployment Architecture
 
+```text
+Browser
+   │
+   ▼
+Streamlit Community Cloud
+   │
+   │ HTTPS
+   ▼
+Render FastAPI Service
+   │
+   ▼
+RBAC + RAG Engine
+   │
+   ├── ChromaDB
+   │
+   └── Google Gemini
 
 
