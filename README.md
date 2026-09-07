@@ -773,4 +773,22 @@ infosys-ai-knowledge-assistant/
 ├── .gitignore
 ├── README.md
 └── vector_db/
+```
+### 📂 Directory Responsibilities
+
+| Directory / File | Responsibility |
+|---|---|
+| `app.py` | Streamlit frontend |
+| `api.py` | FastAPI backend and API endpoints |
+| `ai_workflows/` | Core RAG and RBAC logic |
+| `grounded_synthesis/` | Grounded response generation |
+| `query_classification/` | Role and department authorization |
+| `ingestion_pipeline/` | PDF processing and vector indexing |
+| `data/` | Enterprise knowledge documents |
+| `evaluation/` | Retrieval, generation, and grounding evaluation |
+| `vector_db/` | Local ChromaDB persistence |
+| `requirements.txt` | Python dependencies |
+| `.env.example` | Environment variable template |
+| `.gitignore` | Files excluded from Git |
+
 ---
