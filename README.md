@@ -434,6 +434,37 @@ Authorized Document Chunks
         ↓
 Gemini Generation
 ```
+### Department-Level Permissions
 
+The system defines permissions based on employee designation.
+
+| Designation | Authorized Departments |
+|---|---|
+| Software Engineer | Engineering, Delivery Operations, PMO |
+| Senior Software Engineer | Engineering, Delivery Operations, PMO |
+| DevOps Lead | Engineering, Delivery Operations |
+| Solutions Architect | Engineering, Delivery Operations, PMO |
+| Engineering Lead | Engineering, Delivery Operations, PMO |
+| Sales Executive | Sales, Human Resources |
+| Business Development Manager | Sales, PMO |
+| Account Manager | Sales |
+| Sales Enablement Lead | Sales, Human Resources, PMO |
+| Delivery Manager | Delivery Operations, PMO, Engineering |
+| PMO Lead | PMO, Delivery Operations, Engineering |
+| Operations Lead | Delivery Operations |
+| HR Associate | Human Resources |
+| HR Operations Lead | Human Resources |
+| Senior Manager | Engineering, Delivery Operations, PMO, Human Resources, Sales |
+
+### 🔒 Retrieval-Level Enforcement
+
+RBAC is enforced **before the document context reaches the LLM**.
+
+The user's designation is converted into a list of permitted departments, and the vector retrieval layer uses this information to restrict the searchable document context.
+
+```python
+allowed_departments = QueryRBACClassifier.get_allowed_departments(
+    designation
+)
 
 
