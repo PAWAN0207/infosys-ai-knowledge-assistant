@@ -1081,5 +1081,86 @@ RBAC + RAG Engine
    ↓
 ChromaDB + Gemini
 ```
-
 Tip: Start the FastAPI backend before launching Streamlit so the frontend can connect to the API.
+---
+## 🧪 Testing Application
+
+The application can be validated through the Streamlit UI and FastAPI Swagger interface.
+
+### 1. API Health Check
+
+Verify that the backend is running:
+
+```http
+GET /health
+```
+Expected response:
+```
+{
+  "status": "healthy",
+  "service": "infosys-ai-knowledge-assistant-api"
+}
+```
+### 2. Authorized Query
+
+Select an authorized designation and ask a question related to its permitted department.
+
+Example:
+```
+Designation: Software Engineer
+
+Query:
+What authentication mechanism is required for
+inter-service communication?
+```
+The response should contain relevant enterprise information with source citations.
+
+### 3. RBAC Access Test
+
+Test a query against a department outside the user's authorization.
+
+Example:
+```
+Designation: HR Associate
+
+Query:
+What cloud transformation services are offered?
+```
+Expected behavior:
+```
+Access Denied /
+Insufficient domain context available
+for your role clearance.
+```
+### 4. Citation Verification
+
+For a successful response, verify that the application displays:
+
+Source document
+Page number
+Department
+Retrieved context citation
+
+### 5. Swagger API Testing
+
+The FastAPI Swagger interface can be used to test the API directly:
+```
+http://localhost:8000/docs
+```
+Test:
+```
+GET  /health
+POST /query
+```
+This provides a simple way to validate the backend independently of the Streamlit frontend.
+
+Test Coverage
+```
+Application Testing
+       │
+       ├── API Health
+       ├── Authorized Retrieval
+       ├── RBAC Restriction
+       ├── Citation Verification
+       └── Swagger API Validation
+```
