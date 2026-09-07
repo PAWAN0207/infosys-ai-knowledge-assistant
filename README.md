@@ -731,3 +731,46 @@ Google Gemini
               │
               ▼
            ChromaDB
+```
+----
+## 📁 Project Structure
+
+The project is organized into separate modules for the frontend, API, RAG engine, document ingestion, RBAC, and evaluation.
+
+```text
+infosys-ai-knowledge-assistant/
+│
+├── ai_workflows/
+│   ├── grounded_synthesis/
+│   │   └── synthesis_engine.py
+│   │
+│   └── query_classification/
+│       └── rbac_classifier.py
+│
+├── data/
+│   ├── engineering_guides/
+│   ├── hr_policies/
+│   ├── project_manuals/
+│   ├── sales_assets/
+│   └── sops/
+│
+├── ingestion_pipeline/
+│   └── embedding_jobs/
+│       └── vector_indexer.py
+│
+├── evaluation/
+│   ├── evaluation_dataset.json
+│   ├── generation_evaluation_dataset.json
+│   ├── grounding_evaluation_dataset.json
+│   ├── evaluate_rag.py
+│   ├── evaluate_generation.py
+│   └── evaluate_grounding.py
+│
+├── app.py
+├── api.py
+├── requirements.txt
+├── .env.example
+├── .gitignore
+├── README.md
+└── vector_db/
+---
