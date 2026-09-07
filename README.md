@@ -928,3 +928,55 @@ evaluate_grounding.py
         ↓
 Fact Coverage + Grounding Evaluation
 ```
+---
+
+### 🔄 Component Interaction
+
+The major components work together as follows:
+
+```text
+User
+ ↓
+Streamlit Frontend
+ ↓
+FastAPI Backend
+ ↓
+RBAC Classifier
+ ↓
+ChromaDB Retrieval
+ ↓
+Context Builder
+ ↓
+Google Gemini
+ ↓
+Structured Response
+ ↓
+Citations + Confidence + Recommended Action
+```
+---
+## ⚙️ Installation & Setup
+
+### Prerequisites
+
+- Python 3.12+
+- Conda
+- Git
+- Gemini API key
+
+### 1. Clone the Repository
+
+```bash
+git clone https://github.com/PAWAN0207/infosys-ai-knowledge-assistant.git
+cd infosys-ai-knowledge-assistant
+```
+### 2. Create the Environment
+```
+conda create -n infosys-rag python=3.12 -y
+conda activate infosys-rag
+```
+### 3. Install Dependencies
+```
+pip install -r requirements.txt
+```
+### 4. Configure Environment Variables
+```
