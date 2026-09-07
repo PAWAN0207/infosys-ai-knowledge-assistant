@@ -34,10 +34,9 @@ jobs:
         # Always install pylint
         pip install pylint
 
-    - name: Run pylint
+     - name: Run pylint
       env:
-        PYTHONPATH: backend/src
+        PYTHONPATH: .
       run: |
-        # Run pylint against the package source (putting backend/src on PYTHONPATH lets relative imports resolve)
-        python -m pylint backend/src
-
+        # Run pylint against the actual RAG application source
+        python -m pylint app.py ai_workflows ingestion_pipeline
