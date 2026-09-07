@@ -907,3 +907,24 @@ Gemini Embeddings
       ↓
 ChromaDB
 ```
+---
+
+### 🧪 Evaluation Modules
+
+**Directory:** `evaluation/`
+
+The evaluation framework contains separate modules for measuring different parts of the RAG system.
+
+```text
+evaluate_rag.py
+        ↓
+Retrieval + RBAC Evaluation
+
+evaluate_generation.py
+        ↓
+Generation + Citation Evaluation
+
+evaluate_grounding.py
+        ↓
+Fact Coverage + Grounding Evaluation
+```
