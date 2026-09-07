@@ -980,3 +980,22 @@ pip install -r requirements.txt
 ```
 ### 4. Configure Environment Variables
 ```
+GOOGLE_API_KEY=your_gemini_api_key
+```
+> **Security:** Never commit `.env` or expose API keys. Use `.env.example` as the configuration template.
+
+### 5. Verify Installation
+
+```bash
+python --version
+pip check
+```
+
+### Why this version is better
+
+- **Crisp** — recruiter ko unnecessary dependency list nahi dikhani.
+- **Industry-standard flow** — Prerequisites → Clone → Environment → Dependencies → Configuration → Verification.
+- **Security-conscious** — API key handling clearly mentioned.
+- **Reproducible** — exact commands available.
+
+---
